@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  posted_by: 1
+  artist: MyString
+  song: MyString
+  created_at: 2019-06-11 19:22:09
+
+two:
+  posted_by: 1
+  artist: MyString
+  song: MyString
+  created_at: 2019-06-11 19:22:09

@@ -1,0 +1,96 @@
+// リストを更新する
+var list = document.getElementById('list');
+var collection = document.getElementsByClassName('collection')[0];
+collection.parentNode.removeChild(collection);
+var parentElem = document.createElement('ul');
+parentElem.className = "collection";
+var inner = `
+<% @posts.each do |post| %>
+<li class="collection-item">
+    <b><%= post.song %></b> - <%= post.artist -%><br>
+    <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
+    <span class="pink-text text-lighten-3">
+        <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
+                    <%= post.period_before %>時間ぶり 
+                <% end %>
+        <%= post.count.to_s %>回目
+    </span>
+</li>
+<% end %>
+`;
+parentElem.innerHTML = inner;
+list.insertBefore(parentElem, list.firstChild);
+// ページボタンを全てリセット
+/*
+var btns = document.getElementsByClassName('pg-btn');
+for (let btn of btns) {
+    btn.classList.remove('active');
+}
+*/
+var pagination = document.getElementsByClassName('pagination')[0];
+pagination.parentNode.removeChild(pagination);
+var parentElem = document.createElement('ul');
+parentElem.className = "pagination center-align";
+var inner = `
+<% if @index.to_i == 0 %>
+    <li class="disabled">
+        <a><i class="material-icons">chevron_left</i></a>
+    </li>
+<% else %>
+    <li class="waves-effect">
+        <%= link_to move_path(index: @index.to_i - 1), remote: true do%>
+            <i class="material-icons">chevron_left</i>
+        <% end %>
+    </li>
+<% end %>
+<% if @count > 4 %> <!-- ページが多い場合 -->
+    <li class="pg_btn" id="pg-btn-1">
+        <%= link_to "1", move_path(index: 0), remote: true %>
+    </li>
+    <% if @index.to_i == 1 %>
+        <li class="pg_btn active" id="pg-btn-2">
+            <%= link_to "2", move_path(index: 1), remote: true %>
+        </li>
+        <li><i class="material-icons">more_horiz</i></li>
+    <% elsif @index.to_i == @count.to_i - 2 %>
+        <li><i class="material-icons">more_horiz</i></li>
+        <li class="pg_btn active" id="pg-btn-<%= @index.to_i + 1 %>">
+        </li>
+    <% elsif @index.to_i != 0 and @index.to_i != @count.to_i - 1 %>
+        <li><i class="material-icons">more_horiz</i></li>
+        <li class="pg_btn active" id="pg-btn-<%= @index.to_i + 1 %>">
+            <%= link_to (@index.to_i + 1).to_s, move_path(index: @index.to_i), remote: true %>
+        </li>
+        <li><i class="material-icons">more_horiz</i></li>
+    <% else %>
+        <li><i class="material-icons">more_horiz</i></li>
+    <% end %>
+    <li class="pg-btn" id="pg-btn-<% @count.to_s %>">
+        <%= link_to @count.to_s, move_path(index: @count.to_i - 1), remote: true %>
+    </li>
+<% else %> <!-- ページが少ない場合 -->
+    <% (1..@count).each do |i| %>
+        <li class="pg-btn waves-effect" id="pg-btn-<%= i.to_s %>">
+            <%= link_to i, move_path(index: i - 1), remote: true %>
+        </li>
+    <% end %>
+<% end %>
+<% if @index.to_i == @count.to_i - 1 %>
+    <li class="disabled">
+        <a><i class="material-icons">chevron_right</i></a>
+    </li>
+<% else %>
+    <li class="waves-effect">
+        <%= link_to move_path(index: @index.to_i + 1), remote: true do%>
+            <i class="material-icons">chevron_right</i>
+        <% end %>
+    </li>
+<% end %>
+`;
+parentElem.innerHTML = inner;
+list.appendChild(parentElem);
+
+// ページボタンをアクティブにする
+var btnId = "pg-btn-" + <%= @btn %>;
+var btn = document.getElementById(btnId);
+btn.classList.add("active");

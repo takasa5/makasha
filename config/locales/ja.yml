@@ -1,0 +1,6 @@
+ja:
+  activerecord:
+    attributes:
+      post:
+        artist: "アーティスト名"
+        song: "楽曲名"
