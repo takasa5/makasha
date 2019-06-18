@@ -25,6 +25,16 @@ function onClickTab(elm) {
     return false;
 }
 
+function checkInputs(className) {
+    if (document.getElementById(className + '-song').value == ""
+        || document.getElementById(className + '-artist').value == "") {
+        document.getElementsByClassName(className)[0].classList.add('disabled');
+    } else {
+        document.getElementsByClassName(className)[0].classList.remove('disabled');
+        console.log(document.getElementsByClassName(className)[0]);
+    }
+}
+
 /**
  * Animate in modal
  */

@@ -1,27 +1,35 @@
 <% if logged_in? %>
+<% flash.each do |key, value| %>
+    <% key %>, <% value %>
+<% end %>
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large waves-effect waves-light pink accent-2" onclick="onClickAdd()">
         <i class="material-icons">add</i>
     </a>
 </div>
-<div id="modal1" class="modal" style="z-index:1003">
+<div id="modal1" class="modal">
     <div class="modal-content">
     <h5>名曲を追加する</h5>
-    <%= form_with model: Post.new do |form| %>
+    <%= form_with model: Post.new, local: true do |form| %>
         <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
-        <%= form.text_field :song %>
+        <%= form.text_field :song, onchange: 'checkInputs("add-btn")', id: "add-btn-song" %>
         <br>
         <i class="material-icons" style="font-size:1rem;">person</i><%= form.label :artist %>
-        <%= form.text_field :artist %>
+        <%= form.text_field :artist, onchange: 'checkInputs("add-btn")', id: "add-btn-artist" %>
         <br>
         <label>
-            <%= check_box 'post', 'twitter', :id=>"check" %>
+            <%= form.check_box 'twitter', :id=>"check" %>
             <span>Twitterへ投稿</span>
         </label>
         <div class="modal-footer">
-            <%= form.submit "追加", :class=>"modal-close waves-effect waves-pink btn-flat"%>
+            <%= form.submit "追加", :class=>"waves-effect waves-pink pink lighten-3 btn disabled add-btn" %>
         </div>
     <% end %>
+    </div>
+</div>
+<div id="modal_delete_record" class="modal">
+    <div class="modal-content">
+    <h5>記録を削除する</h5>
     </div>
 </div>
 <div class="container">
@@ -46,13 +54,13 @@
         <li class="tab" id="list-tab" onclick="onClickTab(this)">
             <a href="#list">
                 <i class="material-icons" style="vertical-align:middle;">list</i>
-                <span style="vertical-align:middle;">List</span>
+                <span style="vertical-align:middle;">Record</span>
             </a>
         </li>
         <li class="tab" id="stat-tab" onclick="onClickTab(this)">
             <a href="#stat">
                 <i class="material-icons" style="vertical-align:middle;">pie_chart_outlined</i>
-                <span style="vertical-align:middle;">Stat</span>
+                <span style="vertical-align:middle;">Chart</span>
             </a>
         </li>
     </ul>
@@ -60,14 +68,19 @@
         <ul class="collection">
         <% @posts.each do |post| %>
         <li class="collection-item">
-            <b><%= post.song %></b> - <%= post.artist -%><br>
-            <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
-            <span class="pink-text text-lighten-3">
-                <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
-                    <%= post.period_before %>時間ぶり 
+            <div>
+                <%= link_to record_edit_path(post: post.id), remote: true, class: "secondary-content" do %>
+                    <i class="material-icons grey-text text-lighten-1" style="font-size:1.2rem">edit</i>
                 <% end %>
-                <%= post.count.to_s %>回目
-            </span>
+                <b><%= post.song %></b> - <%= post.artist -%><br>
+                <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
+                <span class="pink-text text-lighten-3">
+                    <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
+                        <%= post.period_before %>時間ぶり 
+                    <% end %>
+                    <%= post.count.to_s %>回目
+                </span>
+            </div>
         </li>
         <% end %>
         </ul>
@@ -75,11 +88,11 @@
             <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
             <% if @count > 4 %> <!-- ページが多い場合 -->
                 <li class="pg_btn active" id="pg-btn-1">
-                    <%= link_to "1", move_path(index: 0), remote: true %>
+                    <%= link_to "1", record_move_path(index: 0), remote: true %>
                 </li>
                 <li><i class="material-icons">more_horiz</i></li>
                 <li class="pg-btn" id="pg-btn-<% @count.to_s %>">
-                    <%= link_to @count.to_s, move_path(index: @count.to_i - 1), remote: true %>
+                    <%= link_to @count.to_s, record_move_path(index: @count.to_i - 1), remote: true %>
                 </li>
             <% else %> <!-- ページが少ない場合 -->
                 <% (1..@count).each do |i| %>
@@ -88,7 +101,7 @@
                 <% else %>
                     <li class="pg-btn waves-effect" id="pg-btn-<%= i.to_s %>">
                 <% end %>
-                <%= link_to i, move_path(index: i - 1), remote: true %>
+                <%= link_to i, record_move_path(index: i - 1), remote: true %>
                 </li>
                 <% end %>
             <% end %>
@@ -96,7 +109,7 @@
                 <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
             <% else %>
             <li class="waves-effect">
-                <%= link_to move_path(index: 1), remote: true do %>
+                <%= link_to record_move_path(index: 1), remote: true do %>
                     <i class="material-icons">chevron_right</i>
                 <% end %>
             <% end %>

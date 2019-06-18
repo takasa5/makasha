@@ -1,0 +1,25 @@
+var modal = document.getElementById('modal_delete_record');
+var inner = `
+    <h5>記録を編集する</h5>
+    <%= form_with model: @post, url: "record/edit/#{@post.id}", local: true do |form| %>
+        <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
+        <%= form.text_field :song, onchange: 'checkInputs("edit-btn")', id: "edit-btn-song" %>
+        <br>
+        <i class="material-icons" style="font-size:1rem;">person</i><%= form.label :artist %>
+        <%= form.text_field :artist, onchange: 'checkInputs("edit-btn")', id: "edit-btn-artist" %>
+        <br>
+        <div class="modal-footer">
+            <%= form.submit "削除", :class=>"left waves-effect waves-pink pink darken-3 btn ", name: "delete"%>
+            <%= form.submit "編集", :class=>"waves-effect waves-pink pink lighten-3 btn edit-btn"%>
+        </div>
+    <% end %>
+`
+modal.textContent = null;
+var div = document.createElement('div');
+div.className = "modal-content";
+div.innerHTML = inner;
+modal.appendChild(div);
+
+
+var instance = M.Modal.getInstance(modal);
+instance.open();
