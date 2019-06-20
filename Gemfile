@@ -36,6 +36,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'twitter'
 gem 'materialize-sass'
 gem 'rails-i18n', '~> 5.1'
 

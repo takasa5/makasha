@@ -1,6 +1,6 @@
 <% if logged_in? %>
 <% flash.each do |key, value| %>
-    <% key %>, <% value %>
+    <% key %><% value %>
 <% end %>
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large waves-effect waves-light pink accent-2" onclick="onClickAdd()">
