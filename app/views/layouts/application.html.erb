@@ -20,14 +20,19 @@
       <div class="nav-wrapper pink lighten-4">
         <a href="#" class="brand-logo center">MoMoM</a>
         <ul id="nav-mobile" class="right">
-          <a class='dropdown-trigger btn grey darken-3' href='#' data-target='dropdown1'>
-            <i class="material-icons">dehaze</i>
+          <a class='sidenav-trigger pink lighten-4' data-target='sidenav'>
+            <i class="material-icons grey-text text-darken-3">dehaze</i>
           </a>
         </ul>
       </div>
     </nav>
-    <ul id='dropdown1' class='dropdown-content'>
-      <li><a href="/signout" class="grey-text text-darken-3">ログアウト</a></li>
+    <ul id='sidenav' class='sidenav'>
+      <li><a href="/signout" class="grey-text text-darken-3">
+        <i class="material-icons">exit_to_app</i>ログアウト
+      </a></li>
+      <li><a href="/" class="grey-text text-darken-3">
+        <i class="material-icons">brightness_high</i>設定
+      </a></li>
     </ul>
   <% end %>
         

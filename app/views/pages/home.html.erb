@@ -12,10 +12,10 @@
     <h5>名曲を追加する</h5>
     <%= form_with model: Post.new, local: true do |form| %>
         <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
-        <%= form.text_field :song, onchange: 'checkInputs("add-btn")', id: "add-btn-song" %>
+        <%= form.text_field :song, onkeyup: 'checkInputs("add-btn")', id: "add-btn-song" %>
         <br>
         <i class="material-icons" style="font-size:1rem;">person</i><%= form.label :artist %>
-        <%= form.text_field :artist, onchange: 'checkInputs("add-btn")', id: "add-btn-artist" %>
+        <%= form.text_field :artist, onkeyup: 'checkInputs("add-btn")', id: "add-btn-artist" %>
         <br>
         <label>
             <%= form.check_box 'twitter', :id=>"check" %>
