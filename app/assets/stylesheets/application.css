@@ -24,3 +24,11 @@
 label {
     vertical-align: middle;
 }
+
+nav .sidenav-trigger {
+    float: none !important;
+    position: relative;
+    z-index: 1;
+    height: auto !important;
+    margin: 0 18px;
+}
