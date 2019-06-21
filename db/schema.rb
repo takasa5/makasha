@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_13_071016) do
+ActiveRecord::Schema.define(version: 2019_06_21_121441) do
 
   create_table "posts", force: :cascade do |t|
     t.string "posted_by"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_071016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "twitterid"
+    t.string "remember_digest"
   end
 
 end

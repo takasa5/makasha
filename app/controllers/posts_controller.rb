@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  include SessionsHelper
   protect_from_forgery
   before_action :twitter_client, only: [:create]
 
@@ -7,13 +8,13 @@ class PostsController < ApplicationController
     @last_post = Post.where(
       song: params[:post][:song],
       artist: params[:post][:artist],
-      posted_by: current_user.name
+      posted_by: current_user.twitterid
     ).last
     if @last_post.nil? # ない場合
       @post = Post.new(
         song: params[:post][:song],
         artist: params[:post][:artist],
-        posted_by: current_user.name,
+        posted_by: current_user.twitterid,
         count: 1,
         period_before: 0
       )
@@ -22,7 +23,7 @@ class PostsController < ApplicationController
       @post = Post.new(
         song: params[:post][:song],
         artist: params[:post][:artist],
-        posted_by: current_user.name,
+        posted_by: current_user.twitterid,
         count: @last_post.count + 1,
         period_before: (Time.current.in_time_zone('Japan') - @last_post.created_at.in_time_zone('Japan')) / 60 / 60
       )
@@ -30,13 +31,9 @@ class PostsController < ApplicationController
     @post.save!
     # ツイート
     if params[:post][:twitter] == "1"
-      @client.update("a")
+      @client.update("test")
     end
-    # @user = current_user()
-    # @count = Post.where(posted_by: @user.name).count / 8 + 1
-    # @posts = Post.where(posted_by: @user.name).reverse_order.limit(8)
-    # flash.now[:alert] = '追加しました'
-    # render :template => "pages/home"
+
     redirect_to root_path
   end
 
@@ -126,8 +123,8 @@ class PostsController < ApplicationController
     @client = Twitter::REST::Client.new do |config|
       config.consumer_key = Rails.application.credentials.mom[:api_key]
       config.consumer_secret = Rails.application.credentials.mom[:api_secret]
-      config.access_token = current_user.token
-      config.access_token_secret = current_user.secret
+      config.access_token = current_user_token
+      config.access_token_secret = current_user_secret
     end
   end
 end

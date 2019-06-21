@@ -1,7 +1,9 @@
 class PagesController < ApplicationController
+  include SessionsHelper
+
   def home
     if logged_in?
-      @user = User.find_by(uid: current_user.uid)
+      @user = current_user
       if @user.nil?
         session[:user_id] = nil
       else
@@ -18,7 +20,7 @@ class PagesController < ApplicationController
   end
 
   def move
-    @user = User.find_by(uid: current_user.uid)
+    @user = current_user
     @index = params[:index]
     @btn = (params[:index].to_i + 1).to_s
     cnt = Post.where(posted_by: @user.twitterid).count

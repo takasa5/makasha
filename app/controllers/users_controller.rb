@@ -5,4 +5,9 @@ class UsersController < ApplicationController
 
     render 'home.index.erb'
   end
+
+  def setting
+
+    render 'setting.html.erb'
+  end
 end
