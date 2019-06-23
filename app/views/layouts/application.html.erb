@@ -18,23 +18,38 @@
   <% if logged_in? %>
     <nav>
       <div class="nav-wrapper pink lighten-4">
-        <a href="/" class="brand-logo center">MoMoM</a>
-        <ul id="nav-mobile" class="right">
-          <a class='sidenav-trigger pink lighten-4' data-target='sidenav'>
-            <i class="material-icons grey-text text-darken-3">dehaze</i>
-          </a>
+        <a href="/" class="brand-logo center">MoM</a>
+        <ul class="left">
+        <a class='sidenav-trigger pink lighten-4' data-target='sidenav'>
+            <i class="material-icons">menu</i>
+        </a>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+           <li><a href="/" class="white-text text-darken-3">
+            <i class="material-icons left">home</i>ホーム</a></li>
+          <li><a href="/setting" class="white-text text-darken-3">
+            <i class="material-icons left">brightness_high</i>設定
+          </a></li>
+          <li><a href="/signout" class="white-text text-darken-3">
+            <i class="material-icons left">exit_to_app</i>ログアウト
+          </a></li>
         </ul>
       </div>
     </nav>
-    <ul id='sidenav' class='sidenav'>
+    <ul id='sidenav' class='sidenav left'>
+      <div class="row pink lighten-5" style="padding:20px 0">
+        <div class="col s4 offset-s4">
+          <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) %>
+        </div>
+      </div>
       <li><a href="/" class="grey-text text-darken-3">
         <i class="material-icons">home</i>ホーム
       </a></li>
-      <li><a href="/signout" class="grey-text text-darken-3">
-        <i class="material-icons">exit_to_app</i>ログアウト
-      </a></li>
       <li><a href="/setting" class="grey-text text-darken-3">
         <i class="material-icons">brightness_high</i>設定
+      </a></li>
+      <li><a href="/signout" class="grey-text text-darken-3">
+        <i class="material-icons">exit_to_app</i>ログアウト
       </a></li>
     </ul>
   <% end %>
