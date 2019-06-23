@@ -14,8 +14,12 @@ var inner = `
     <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
     <span class="pink-text text-lighten-3">
         <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
-                    <%= post.period_before %>時間ぶり 
-                <% end %>
+            <% if post.period_before.to_i > 24 %>
+                <%= post.period_before.to_i / 24 %>日ぶり
+            <% elsif post.period_before.to_i > 24 * 365 %>
+                <%= post.period_before.to_i / (24 * 365) %>年ぶり 
+            <% end %>
+        <% end %>
         <%= post.count.to_s %>回目
     </span>
 </li>
