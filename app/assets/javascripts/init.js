@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Tabs.init(elems, {});
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems, {});
+
+    var elems = document.querySelectorAll('textarea');
+    var instances = M.CharacterCounter.init(elems);
 });
 
 function onClickAdd() {

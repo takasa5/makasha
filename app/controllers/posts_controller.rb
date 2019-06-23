@@ -4,17 +4,18 @@ class PostsController < ApplicationController
   before_action :twitter_client, only: [:create]
 
   def create
+    user = current_user
     # 最新の同一データを取得
     @last_post = Post.where(
       song: params[:post][:song],
       artist: params[:post][:artist],
-      posted_by: current_user.twitterid
+      posted_by: user.twitterid
     ).last
     if @last_post.nil? # ない場合
       @post = Post.new(
         song: params[:post][:song],
         artist: params[:post][:artist],
-        posted_by: current_user.twitterid,
+        posted_by: user.twitterid,
         count: 1,
         period_before: 0
       )
@@ -23,7 +24,7 @@ class PostsController < ApplicationController
       @post = Post.new(
         song: params[:post][:song],
         artist: params[:post][:artist],
-        posted_by: current_user.twitterid,
+        posted_by: user.twitterid,
         count: @last_post.count + 1,
         period_before: (Time.current.in_time_zone('Japan') - @last_post.created_at.in_time_zone('Japan')) / 60 / 60
       )
@@ -31,7 +32,8 @@ class PostsController < ApplicationController
     @post.save!
     # ツイート
     if params[:post][:twitter] == "1"
-      @client.update("test")
+      make_tweet(user.template, @post)
+      @client.update(@tweet)
     end
 
     redirect_to root_path
@@ -126,5 +128,9 @@ class PostsController < ApplicationController
       config.access_token = current_user_token
       config.access_token_secret = current_user_secret
     end
+  end
+
+  def make_tweet(template, post)
+    @tweet = template.gsub!("%artist%", post.artist).gsub!("%song%", post.song)
   end
 end

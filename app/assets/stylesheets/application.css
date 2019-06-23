@@ -32,3 +32,23 @@ nav .sidenav-trigger {
     height: auto !important;
     margin: 0 18px;
 }
+
+/* label focus color */
+input[type=text]:focus + label {
+  color: pink !important;
+}
+/* label underline focus color */
+input[type=text]:focus {
+  border-bottom: 1px solid pink !important;
+  box-shadow: 0 1px 0 0 pink !important;
+}
+
+/* label focus color */
+.input-field textarea:focus + label {
+  color: pink !important;
+}
+/* label underline focus color */
+.input-field textarea:focus {
+  border-bottom: 1px solid pink !important;
+  box-shadow: 0 1px 0 0 pink !important;
+}

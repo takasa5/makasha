@@ -1,6 +1,9 @@
 ja:
   activerecord:
     attributes:
+      user:
+        profile: "プロフィール"
+        template: "ツイートテンプレート"
       post:
         artist: "アーティスト名"
         song: "楽曲名"
