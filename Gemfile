@@ -40,6 +40,8 @@ gem 'twitter'
 gem 'materialize-sass'
 gem 'rails-i18n', '~> 5.1'
 gem 'bcrypt', '~> 3.1.7'
+# pass data from rails to javascript
+gem 'gon'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
