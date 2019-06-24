@@ -3,8 +3,8 @@
     <% key %><% value %>
 <% end %>
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light pink accent-2" onclick="onClickAdd()">
-        <i class="material-icons">add</i>
+    <a class="btn-floating btn-large waves-effect waves-light main-color" onclick="onClickAdd()">
+        <i class="material-icons base-high-color-text">add</i>
     </a>
 </div>
 <div id="modal1" class="modal">
@@ -22,7 +22,7 @@
             <span>Twitterへ投稿</span>
         </label>
         <div class="modal-footer">
-            <%= form.submit "追加", :class=>"waves-effect waves-pink pink lighten-3 btn disabled add-btn" %>
+            <%= form.submit "追加", :class=>"waves-effect med-color btn disabled add-btn white-text" %>
         </div>
     <% end %>
     </div>
@@ -53,13 +53,13 @@
     </div>
     <ul class="tabs tabs-fixed-width" id="tabs1">
         <li class="tab" id="list-tab" onclick="onClickTab(this)">
-            <a href="#list">
+            <a href="#list" class="main-color-text">
                 <i class="material-icons" style="vertical-align:middle;">list</i>
                 <span style="vertical-align:middle;">Record</span>
             </a>
         </li>
         <li class="tab" id="stat-tab" onclick="onClickTab(this)">
-            <a href="#stat">
+            <a href="#stat" class="main-color-text">
                 <i class="material-icons" style="vertical-align:middle;">pie_chart_outlined</i>
                 <span style="vertical-align:middle;">Chart</span>
             </a>
@@ -75,7 +75,7 @@
                 <% end %>
                 <b><%= post.song %></b> - <%= post.artist -%><br>
                 <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
-                <span class="pink-text text-lighten-3">
+                <span class="main-color-text">
                     <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
                         <% if post.period_before.to_i > 24 %>
                             <%= post.period_before.to_i / 24 %>日ぶり

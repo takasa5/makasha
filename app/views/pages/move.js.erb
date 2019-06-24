@@ -12,7 +12,7 @@ var inner = `
     <% end %>
     <b><%= post.song %></b> - <%= post.artist -%><br>
     <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
-    <span class="pink-text text-lighten-3">
+    <span class="main-color-text">
         <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
             <% if post.period_before.to_i > 24 %>
                 <%= post.period_before.to_i / 24 %>日ぶり

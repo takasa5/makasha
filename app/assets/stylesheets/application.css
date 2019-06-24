@@ -13,9 +13,10 @@
  *= require_tree .
  *= require_self
  */
- .pagination li.active a {
-    color: #fff;
-  }
+.pagination li.active a {
+  background-color: #726DA8 !important;
+  color: #fff;
+}
 
 .material-icons {
     vertical-align: middle;
@@ -35,20 +36,70 @@ nav .sidenav-trigger {
 
 /* label focus color */
 input[type=text]:focus + label {
-  color: pink !important;
+  color: #726DA8 !important;
 }
 /* label underline focus color */
 input[type=text]:focus {
-  border-bottom: 1px solid pink !important;
-  box-shadow: 0 1px 0 0 pink !important;
+  border-bottom: 1px solid #726DA8 !important;
+  box-shadow: 0 1px 0 0 #726DA8 !important;
 }
 
 /* label focus color */
 .input-field textarea:focus + label {
-  color: pink !important;
+  color: #726DA8 !important;
 }
 /* label underline focus color */
 .input-field textarea:focus {
-  border-bottom: 1px solid pink !important;
-  box-shadow: 0 1px 0 0 pink !important;
+  border-bottom: 1px solid #726DA8 !important;
+  box-shadow: 0 1px 0 0 #726DA8 !important;
+}
+
+.tabs .tab a.active {
+  background-color: #BEE7E8 !important;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+  background-color:#726DA8 !important;
+} /*Color of underline*/
+
+
+/* color */
+.base-low-color {
+  background-color: #594157 !important
+}
+
+.base-low-color-text {
+  color: #594157 !important
+}
+
+.main-color {
+  background-color: #726DA8 !important
+}
+
+.main-color-text {
+  color: #726DA8 !important
+}
+
+.med-color {
+  background-color: #7D8CC4 !important
+}
+
+.med-color-text {
+  color: #7D8CC4 !important
+}
+
+.accent-color {
+  background-color: #A0D2DB !important
+}
+
+.accent-color-text {
+  color: #A0D2DB !important
+}
+
+.base-high-color {
+  background-color: #BEE7E8 !important
+}
+
+.base-high-color-text {
+  color: #BEE7E8 !important
 }

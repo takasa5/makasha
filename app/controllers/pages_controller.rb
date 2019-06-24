@@ -40,7 +40,7 @@ class PagesController < ApplicationController
   end
 
   private
-
+  LEGEND_LIMIT = 4
   def get_record_stat
     # 対象レコードデータ
     record = Post.where(posted_by: current_user.twitterid).reverse_order.limit(100)
@@ -53,14 +53,31 @@ class PagesController < ApplicationController
       labels: [],
       datasets: [{
         data: [],
-        backgroundColor: []
+        backgroundColor: [
+          "#594157",
+          "#726DA8",
+          "#7D8CC4",
+          "#A0D2DB",
+          "#BEE7E8"
+        ]
       }]
     }
-    for d in data do
+    data.each_with_index do |d, index|
+      if index == LEGEND_LIMIT
+        break
+      end
       artists_count[:labels] << d[0]
       artists_count[:datasets][0][:data] << d[1]
     end
-    ## TODO: その他処理
+    ## その他処理
+    if data.length > LEGEND_LIMIT
+      others_sum = 0
+      for d in data[LEGEND_LIMIT..data.length] do
+        others_sum += d[1]
+      end
+      artists_count[:labels] << "その他"
+      artists_count[:datasets][0][:data] << others_sum
+    end
     gon.artists_count = artists_count
   end
 end

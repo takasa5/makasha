@@ -19,11 +19,11 @@
   <body>
   <% if logged_in? %>
     <nav>
-      <div class="nav-wrapper pink lighten-4">
-        <a href="/" class="brand-logo center">MoM</a>
+      <div class="nav-wrapper main-color">
+        <a href="/" class="brand-logo center base-high-color-text">makasha</a>
         <ul class="left">
-        <a class='sidenav-trigger pink lighten-4' data-target='sidenav'>
-            <i class="material-icons">menu</i>
+        <a class='sidenav-trigger main-color' data-target='sidenav'>
+            <i class="material-icons base-high-color-text">menu</i>
         </a>
         </ul>
         <ul class="right hide-on-med-and-down">
@@ -39,7 +39,7 @@
       </div>
     </nav>
     <ul id='sidenav' class='sidenav left'>
-      <div class="row pink lighten-5" style="padding:20px 0">
+      <div class="row med-color" style="padding:20px 0">
         <div class="col s4 offset-s4">
           <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) %>
         </div>

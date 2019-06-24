@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // グラフ描画
     var ctx = document.getElementById('artistsCount').getContext('2d');
     var acChart = new Chart(ctx, {
-        type: 'doughnut',
+        type: 'pie',
         data: gon.artists_count,
         options: {
             title: {
