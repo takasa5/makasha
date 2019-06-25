@@ -3,8 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Sidenav.init(elems, {
         edge: 'left',
     });
+    var listHeight = Math.max(
+        document.getElementById('list').clientHeight,
+        document.getElementById('stat').clientHeight
+    );
     var elems = document.querySelectorAll('.tabs');
-    var instances = M.Tabs.init(elems, {});
+    var instances = M.Tabs.init(elems, {
+        swipeable: true
+    });
+    document.querySelector('.tabs-content.carousel').style.height = "600px";
+
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems, {});
     var elems = document.querySelectorAll('textarea');

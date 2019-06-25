@@ -55,12 +55,25 @@ input[type=text]:focus {
 }
 
 .tabs .tab a.active {
-  background-color: #BEE7E8 !important;
+  background-color: #E8F4F4 !important;
 } /*Background and text color when a tab is active*/
 
 .tabs .indicator {
   background-color:#726DA8 !important;
 } /*Color of underline*/
+
+
+.tabs-content.carousel {
+  height: 100%;
+  overflow-x:hidden;
+  overflow-y: scroll;
+}
+.tabs-content.carousel .carousel-item {
+  width: 100%;
+  height: 100%;
+}
+/* html,body{ overflow:hidden; height:100%; } */
+
 
 
 /* color */
