@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Tabs.init(elems, {
         swipeable: true
     });
-    document.querySelector('.tabs-content.carousel').style.height = "600px";
+    document.querySelector('.tabs-content.carousel').style.height = listHeight * 1.1 + "px";
 
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems, {});
@@ -19,6 +19,27 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.CharacterCounter.init(elems);
 
     // グラフ描画
+    var ctx = document.getElementById('recordChrono').getContext('2d');
+    var rcChart = new Chart(ctx, {
+        type: 'line',
+        data: gon.chrono,
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        // displayFormats: {
+                        //     unit: 'week',
+                        //     week: 'll'
+                        // }
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            }
+        }
+    });
     var ctx = document.getElementById('artistsCount').getContext('2d');
     var acChart = new Chart(ctx, {
         type: 'pie',
