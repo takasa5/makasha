@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         data: gon.artists_count,
         options: {
             title: {
-                display: true,
+                display: false,
                 text: '最近のアーティスト'
             },
             legend: {

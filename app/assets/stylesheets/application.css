@@ -74,6 +74,9 @@ input[type=text]:focus {
 }
 /* html,body{ overflow:hidden; height:100%; } */
 
+#stat-collection .collection-item {
+  padding: 10px 5px;
+}
 
 
 /* color */

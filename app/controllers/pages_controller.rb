@@ -43,8 +43,9 @@ class PagesController < ApplicationController
   LEGEND_LIMIT = 4
   def get_record_stat
     # 対象レコードデータ
+    # TODO: 検索対象の指定
     record = Post.where(posted_by: current_user.twitterid).reverse_order.limit(100)
-    
+
     # 最近のアーティスト比率
     ## ユーザの最新100件のうち，アーティストと出現回数の組を取得
     data = record.group(:artist).count.sort_by{|a| a[1]}.reverse
@@ -79,5 +80,11 @@ class PagesController < ApplicationController
       artists_count[:datasets][0][:data] << others_sum
     end
     gon.artists_count = artists_count
+
+    # 曲のランキング
+    data = record.group(:artist, :song).count.sort_by{|a| a[1]}.reverse[0..2]
+    gon.song_rank = data
+    @rank = data
+
   end
 end

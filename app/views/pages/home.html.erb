@@ -122,7 +122,26 @@
         </ul>
     </div>
     <div id="stat">
-        <canvas id="artistsCount"></canvas>
+    <ul id="stat-collection" class="collection">
+        <li class="collection-item">
+            <h6 class="center">お気に入りアーティスト</h6>
+            <canvas id="artistsCount"></canvas>
+        </li>
+        <li class="collection-item">
+            <h6 class="center">お気に入り楽曲</h6>
+            <table class="striped centered">
+                <tbody>
+                <% @rank.each_with_index do |data, i| %>
+                    <tr>
+                        <td><b><%= data[0][1] %></b></td>
+                        <td><%= data[0][0] %></td>
+                        <td><%= data[1] %>回</td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+        </li>
+    </ul>
     </div>
 </div>
 <% else %>
