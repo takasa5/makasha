@@ -1,9 +1,12 @@
+
+<%= javascript_include_tag 'init.js' %>
+
 <% if logged_in? %>
 <% flash.each do |key, value| %>
     <% key %><% value %>
 <% end %>
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light base-low-color" onclick="onClickAdd()">
+    <a class="btn-floating btn-large waves-effect waves-light main-color" onclick="onClickAdd()">
         <i class="material-icons base-high-color-text">add</i>
     </a>
 </div>
@@ -46,6 +49,7 @@
             </div>
             <div class="col s8 l10">
                 <span class="card-title"><%= @user.name %></span>
+                <span class="main-color-text"><%= @records %> RECORDS<br></span>
                 <%= @user.profile %>
             </div>
             </div>
@@ -122,16 +126,16 @@
         </ul>
     </div>
     <div id="stat">
-    <ul id="stat-collection" class="collection">
-        <li class="collection-item">
+    <ul id="stat-collection" class="collection row">
+        <li class="collection-item col s12 m6">
             <h6 class="center">記録数</h6>
             <canvas id="recordChrono"></canvas>
         </li>
-        <li class="collection-item">
+        <li class="collection-item col s12 m6">
             <h6 class="center">お気に入りアーティスト</h6>
             <canvas id="artistsCount"></canvas>
         </li>
-        <li class="collection-item">
+        <li class="collection-item col s12 m6">
             <h6 class="center">お気に入り楽曲</h6>
             <table class="striped centered">
                 <tbody>
