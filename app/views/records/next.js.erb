@@ -1,6 +1,6 @@
-<%= javascript_include_tag 'records.js' %>
-<div class="container">
-<ul id="records-collection" class="collection">
+// レコードの末尾に追加
+var recordsWrapper = document.getElementById('records-collection');
+var inner = `
 <% @posts.each do |post| %>
     <li class="collection-item avatar">
         <% user = user_from_post(post) %>
@@ -21,10 +21,23 @@
         </span>
     </li>
 <% end %>
-</ul>
-<div id="next-btn-wrapper" class="row">
-    <button class="btn waves-effect waves-light main-color col s12">
-        <%= link_to "続きを表示", records_next_path(start: 10), remote: true, class: "white-text" %>
+`;
+recordsWrapper.innerHTML += inner;
+
+// 「続きを表示」ボタンの更新
+var nextButtonWrapper = document.getElementById('next-btn-wrapper');
+if (<%= @terminal_flag %>) {
+    var inner = `
+    <button class="btn disabled waves-effect waves-light main-color col s12">
+        ここが最初のレコードです。
     </button>
-</div>
-</div>
+    `
+    nextButtonWrapper.innerHTML = inner;
+} else {
+    var inner = `
+    <button class="btn waves-effect waves-light main-color col s12">
+        <%= link_to "続きを表示", records_next_path(start: @start + 10), remote: true, class: "white-text" %>
+    </button>
+    `;
+    nextButtonWrapper.innerHTML = inner;
+}
