@@ -7,8 +7,10 @@ parentElem.className = "collection";
 var inner = `
 <% @posts.each do |post| %>
 <li class="collection-item">
-    <%= link_to record_edit_path(post: post.id), remote: true, class: "secondary-content" do %>
-        <i class="material-icons grey-text text-lighten-1" style="font-size:1.2rem">edit</i>
+    <% if current_page?(controller: "pages", action: "home") %>
+        <%= link_to record_edit_path(post: post.id), remote: true, class: "secondary-content" do %>
+            <i class="material-icons grey-text text-lighten-1" style="font-size:1.2rem">edit</i>
+        <% end %>
     <% end %>
     <b><%= post.song %></b> - <%= post.artist -%><br>
     <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
@@ -45,18 +47,18 @@ var inner = `
     </li>
 <% else %>
     <li class="waves-effect">
-        <%= link_to record_move_path(index: @index.to_i - 1), remote: true do%>
+        <%= link_to record_move_path(user: @user, index: @index.to_i - 1), remote: true do%>
             <i class="material-icons">chevron_left</i>
         <% end %>
     </li>
 <% end %>
 <% if @count > 4 %> <!-- ページが多い場合 -->
     <li class="pg_btn" id="pg-btn-1">
-        <%= link_to "1", record_move_path(index: 0), remote: true %>
+        <%= link_to "1", record_move_path(user: @user, index: 0), remote: true %>
     </li>
     <% if @index.to_i == 1 %>
         <li class="pg_btn active" id="pg-btn-2">
-            <%= link_to "2", record_move_path(index: 1), remote: true %>
+            <%= link_to "2", record_move_path(user: @user, index: 1), remote: true %>
         </li>
         <li><i class="material-icons">more_horiz</i></li>
     <% elsif @index.to_i == @count.to_i - 2 %>
@@ -66,19 +68,19 @@ var inner = `
     <% elsif @index.to_i != 0 and @index.to_i != @count.to_i - 1 %>
         <li><i class="material-icons">more_horiz</i></li>
         <li class="pg_btn active" id="pg-btn-<%= @index.to_i + 1 %>">
-            <%= link_to (@index.to_i + 1).to_s, record_move_path(index: @index.to_i), remote: true %>
+            <%= link_to (@index.to_i + 1).to_s, record_move_path(user: @user, index: @index.to_i), remote: true %>
         </li>
         <li><i class="material-icons">more_horiz</i></li>
     <% else %>
         <li><i class="material-icons">more_horiz</i></li>
     <% end %>
     <li class="pg-btn" id="pg-btn-<% @count.to_s %>">
-        <%= link_to @count.to_s, record_move_path(index: @count.to_i - 1), remote: true %>
+        <%= link_to @count.to_s, record_move_path(user: @user, index: @count.to_i - 1), remote: true %>
     </li>
 <% else %> <!-- ページが少ない場合 -->
     <% (1..@count).each do |i| %>
         <li class="pg-btn waves-effect" id="pg-btn-<%= i.to_s %>">
-            <%= link_to i, record_move_path(index: i - 1), remote: true %>
+            <%= link_to i, record_move_path(user: @user, index: i - 1), remote: true %>
         </li>
     <% end %>
 <% end %>
@@ -88,7 +90,7 @@ var inner = `
     </li>
 <% else %>
     <li class="waves-effect">
-        <%= link_to record_move_path(index: @index.to_i + 1), remote: true do%>
+        <%= link_to record_move_path(user: @user, index: @index.to_i + 1), remote: true do%>
             <i class="material-icons">chevron_right</i>
         <% end %>
     </li>

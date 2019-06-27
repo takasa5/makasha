@@ -43,7 +43,7 @@
     <ul id='sidenav' class='sidenav left'>
       <div class="row med-color" style="padding:20px 0">
         <div class="col s4 offset-s4">
-          <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) %>
+          <%= image_tag(current_user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) %>
         </div>
       </div>
       <li><a href="/" class="grey-text text-darken-3">

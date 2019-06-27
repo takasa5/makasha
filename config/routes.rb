@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'pages/home'
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/signout', to: 'sessions#destroy'
-  get '/setting' => 'users#setting'
+  get '/setting' => 'pages#setting'
   get 'users/:twitterid' => 'users#home'
   get 'record/move' => 'pages#move'
   get 'record/edit' => 'pages#edit'

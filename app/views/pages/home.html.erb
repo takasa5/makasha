@@ -1,40 +1,41 @@
 
 <%= javascript_include_tag 'init.js' %>
 
-<% if logged_in? %>
 <% flash.each do |key, value| %>
     <% key %><% value %>
 <% end %>
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light main-color" onclick="onClickAdd()">
-        <i class="material-icons base-high-color-text">add</i>
-    </a>
-</div>
-<div id="modal1" class="modal">
-    <div class="modal-content">
-    <h5>名曲を追加する</h5>
-    <%= form_with model: Post.new, local: true do |form| %>
-        <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
-        <%= form.text_field :song, onkeyup: 'checkInputs("add-btn")', id: "add-btn-song" %>
-        <br>
-        <i class="material-icons" style="font-size:1rem;">person</i><%= form.label :artist %>
-        <%= form.text_field :artist, onkeyup: 'checkInputs("add-btn")', id: "add-btn-artist" %>
-        <br>
-        <label>
-            <%= form.check_box 'twitter', :id=>"check" %>
-            <span>Twitterへ投稿</span>
-        </label>
-        <div class="modal-footer">
-            <%= form.submit "追加", :class=>"waves-effect med-color btn disabled add-btn white-text" %>
+<% if current_page?(controller: "pages", action: "home") %>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large waves-effect waves-light main-color" onclick="onClickAdd()">
+            <i class="material-icons base-high-color-text">add</i>
+        </a>
+    </div>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+        <h5>名曲を追加する</h5>
+        <%= form_with model: Post.new, local: true do |form| %>
+            <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
+            <%= form.text_field :song, onkeyup: 'checkInputs("add-btn")', id: "add-btn-song" %>
+            <br>
+            <i class="material-icons" style="font-size:1rem;">person</i><%= form.label :artist %>
+            <%= form.text_field :artist, onkeyup: 'checkInputs("add-btn")', id: "add-btn-artist" %>
+            <br>
+            <label>
+                <%= form.check_box 'twitter', :id=>"check" %>
+                <span>Twitterへ投稿</span>
+            </label>
+            <div class="modal-footer">
+                <%= form.submit "追加", :class=>"waves-effect med-color btn disabled add-btn white-text" %>
+            </div>
+        <% end %>
         </div>
-    <% end %>
     </div>
-</div>
-<div id="modal_delete_record" class="modal">
-    <div class="modal-content">
-    <h5>記録を削除する</h5>
+    <div id="modal_delete_record" class="modal">
+        <div class="modal-content">
+        <h5>記録を削除する</h5>
+        </div>
     </div>
-</div>
+<% end %>
 <div class="container">
     <% if flash[:notice] %>
     <div class="notice">
@@ -74,8 +75,10 @@
         <% @posts.each do |post| %>
         <li class="collection-item">
             <div>
-                <%= link_to record_edit_path(post: post.id), remote: true, class: "secondary-content" do %>
-                    <i class="material-icons grey-text text-lighten-1" style="font-size:1.2rem">edit</i>
+                <% if current_page?(controller: "pages", action: "home") %>
+                    <%= link_to record_edit_path(post: post.id), remote: true, class: "secondary-content" do %>
+                        <i class="material-icons grey-text text-lighten-1" style="font-size:1.2rem">edit</i>
+                    <% end %>
                 <% end %>
                 <b><%= post.song %></b> - <%= post.artist -%><br>
                 <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
@@ -97,11 +100,11 @@
             <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
             <% if @count > 4 %> <!-- ページが多い場合 -->
                 <li class="pg_btn active" id="pg-btn-1">
-                    <%= link_to "1", record_move_path(index: 0), remote: true %>
+                    <%= link_to "1", record_move_path(user: @user.twitterid, index: 0), remote: true %>
                 </li>
                 <li><i class="material-icons">more_horiz</i></li>
                 <li class="pg-btn" id="pg-btn-<% @count.to_s %>">
-                    <%= link_to @count.to_s, record_move_path(index: @count.to_i - 1), remote: true %>
+                    <%= link_to @count.to_s, record_move_path(user: @user.twitterid, index: @count.to_i - 1), remote: true %>
                 </li>
             <% else %> <!-- ページが少ない場合 -->
                 <% (1..@count).each do |i| %>
@@ -110,7 +113,7 @@
                 <% else %>
                     <li class="pg-btn waves-effect" id="pg-btn-<%= i.to_s %>">
                 <% end %>
-                <%= link_to i, record_move_path(index: i - 1), remote: true %>
+                <%= link_to i, record_move_path(user: @user.twitterid, index: i - 1), remote: true %>
                 </li>
                 <% end %>
             <% end %>
@@ -118,7 +121,7 @@
                 <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
             <% else %>
             <li class="waves-effect">
-                <%= link_to record_move_path(index: 1), remote: true do %>
+                <%= link_to record_move_path(user: @user.twitterid, index: 1), remote: true do %>
                     <i class="material-icons">chevron_right</i>
                 <% end %>
             <% end %>
@@ -152,6 +155,3 @@
     </ul>
     </div>
 </div>
-<% else %>
-    <%= link_to 'Twitter Login', '/auth/twitter' %>
-<% end %>
