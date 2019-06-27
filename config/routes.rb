@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'record/edit' => 'pages#edit'
   patch 'record/edit/:id' => 'posts#update'
   get '/lp' => 'landing#index'
+  get '/records' => 'records#index'
 
   resources :users
   resources :posts

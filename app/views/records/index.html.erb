@@ -1,0 +1,25 @@
+<%= javascript_include_tag 'records.js' %>
+<div class="container">
+<ul class="collection">
+<% @posts.each do |post| %>
+    <li class="collection-item avatar">
+        <% user = user_from_post(post) %>
+        <%= link_to image_tag(user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) ,"/users/#{user.twitterid}" %>
+        <%= link_to user.name, "/users/#{user.twitterid}" %><br>
+        <b><%= post.song %></b> - <%= post.artist -%><br>
+        
+        <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
+        <span class="main-color-text">
+            <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
+                <% if post.period_before.to_i > 24 %>
+                    <%= post.period_before.to_i / 24 %>日ぶり
+                <% elsif post.period_before.to_i > 24 * 365 %>
+                    <%= post.period_before.to_i / (24 * 365) %>年ぶり 
+                <% end %>
+            <% end %>
+            <%= post.count.to_s %>回目
+        </span>
+    </li>
+<% end %>
+</ul>
+</div>

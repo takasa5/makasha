@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Masterpiece</title>
+    <title>makasha</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta charset="utf-8" />
@@ -19,6 +19,7 @@
   </head>
 
   <body>
+  <%= javascript_include_tag 'init.js' %>
   <% if logged_in? %>
     <nav>
       <div class="nav-wrapper main-color">
@@ -47,7 +48,10 @@
         </div>
       </div>
       <li><a href="/" class="grey-text text-darken-3">
-        <i class="material-icons">home</i>ホーム
+        <i class="material-icons">home</i>マイページ
+      </a></li>
+      <li><a href="/records" class="grey-text text-darken-3">
+        <i class="material-icons">people</i>みんなのレコード
       </a></li>
       <li><a href="/setting" class="grey-text text-darken-3">
         <i class="material-icons">brightness_high</i>設定
