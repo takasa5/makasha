@@ -49,7 +49,7 @@ module UsersHelper
     # 記録対象の最古timeをとってきて，それ以前のデータをcount
     most_old_time = record.last.created_at
     range = 100.year.ago..(most_old_time - 1)
-    base_count = Post.where(posted_by: current_user.twitterid, created_at: range).count
+    base_count = Post.where(posted_by: user.twitterid, created_at: range).count
     ## 検索対象の日付を記録
     timestamps = []
     record.each do |data|
