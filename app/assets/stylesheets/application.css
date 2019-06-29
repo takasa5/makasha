@@ -34,6 +34,10 @@ nav .sidenav-trigger {
     margin: 0 18px;
 }
 
+.dropdown-content li>a, .dropdown-content li>span {
+  color: #594157 !important;
+}
+
 /* label focus color */
 input[type=text]:focus + label {
   color: #726DA8 !important;

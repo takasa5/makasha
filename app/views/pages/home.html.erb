@@ -5,7 +5,7 @@
     <% key %><% value %>
 <% end %>
 <% if current_page?(controller: "pages", action: "home") %>
-    <div class="fixed-action-btn">
+    <div class="fixed-action-btn" id="floating-add-btn">
         <a class="btn-floating btn-large waves-effect waves-light main-color" onclick="onClickAdd()">
             <i class="material-icons base-high-color-text">add</i>
         </a>
@@ -129,6 +129,16 @@
         </ul>
     </div>
     <div id="stat">
+        <div class="input-field col s12">
+        <%= form_with url: chart_path(user: @user.twitterid), remote: true, id: "chart-range-select" do |f| %>
+            <%= f.select :range,
+                [["最新100件", "recent100"],
+                 ["一週間", "week"],
+                 ["一ヶ月間", "month"],
+                 ["一年間", "year"]], {},
+                onChange: 'Rails.fire(document.getElementById("chart-range-select"), "submit")'%>
+        <% end %>
+        </div>
     <ul id="stat-collection" class="collection row">
         <li class="collection-item col s12 m6">
             <h6 class="center">記録数</h6>
@@ -140,7 +150,7 @@
         </li>
         <li class="collection-item col s12 m6">
             <h6 class="center">お気に入り楽曲</h6>
-            <table class="striped centered">
+            <table class="striped centered" id="songs_rank">
                 <tbody>
                 <% @rank.each_with_index do |data, i| %>
                     <tr>

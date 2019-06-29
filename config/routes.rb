@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/lp' => 'landing#index'
   get '/records' => 'records#index'
   get '/records/next' => 'records#next'
+  post '/chart' => 'pages#chart_update'
 
   resources :users
   resources :posts

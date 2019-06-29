@@ -1,0 +1,21 @@
+// chart update
+var chrono = <%= @chrono %>;
+var artists_count = <%= @artists_count %>;
+
+window.rcChart.data = chrono;
+window.rcChart.update();
+window.acChart.data = artists_count;
+window.acChart.update();
+
+var rank = document.getElementById("songs_rank");
+rank.innerHTML = `
+<tbody>
+<% @rank.each_with_index do |data, i| %>
+    <tr>
+        <td><b><%= data[0][1] %></b></td>
+        <td><%= data[0][0] %></td>
+        <td><%= data[1] %>回</td>
+    </tr>
+<% end %>
+</tbody>
+`;

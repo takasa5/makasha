@@ -1,10 +1,17 @@
 module UsersHelper
 
-  def get_record_stat(user, legend_limit: 4)
+  def get_record_stat(user, range: "recent100", legend_limit: 4)
     # 対象レコードデータ
-    # TODO: 検索対象の指定
-    record = Post.where(posted_by: user.twitterid).reverse_order.limit(100)
-
+    record = Post.where(posted_by: user).reverse_order
+    if range == "recent100"
+      record = record.limit(100)
+    elsif range == "week"
+      record = record.where(created_at: (Time.zone.today - 7)..Time.zone.today)
+    elsif range == "month"
+      record = record.where(created_at: (Time.zone.today - 30)..Time.zone.today)
+    elsif range == "year"
+      record = record.where(created_at: (Time.zone.today - 365)..Time.zone.today)
+    end
     # 最近のアーティスト比率
     ## ユーザの最新100件のうち，アーティストと出現回数の組を取得
     data = record.group(:artist).count.sort_by{|a| a[1]}.reverse
@@ -39,17 +46,25 @@ module UsersHelper
       artists_count[:datasets][0][:data] << others_sum
     end
     gon.artists_count = artists_count
-
+    @artists_count = artists_count.to_json.html_safe
     # 曲のランキング
     data = record.group(:artist, :song).count.sort_by{|a| a[1]}.reverse[0..2]
     @rank = data
 
     # レコード増加
-    # TODO: 最初から日時で切り出さないとおかしくなる
+    # TODO: 最初から日時で切り出さないとおかしくなる?
     # 記録対象の最古timeをとってきて，それ以前のデータをcount
-    most_old_time = record.last.created_at
-    range = 100.year.ago..(most_old_time - 1)
-    base_count = Post.where(posted_by: user.twitterid, created_at: range).count
+    if range == "recent100"
+      most_old_time = record.last.created_at
+    elsif range == "week"
+      most_old_time = Time.zone.today - 7
+    elsif range == "month"
+      most_old_time = Time.zone.today - 30
+    elsif range == "year"
+      most_old_time = Time.zone.today - 365
+    end
+    search_range = 100.year.ago..(most_old_time - 1)
+    base_count = Post.where(posted_by: user, created_at: search_range).count
     ## 検索対象の日付を記録
     timestamps = []
     record.each do |data|
@@ -78,11 +93,22 @@ module UsersHelper
         steppedLine: true
       }]
     }
+    most_old_label = most_old_time.strftime("%Y-%m-%d")
+    if range != "recent100" and time_count_set[0][0] != most_old_label
+      chrono[:labels] << most_old_label
+      chrono[:datasets][0][:data] << base_count
+    end
     for set in time_count_set
       base_count += set[1]
       chrono[:labels] << set[0]
       chrono[:datasets][0][:data] << base_count
     end
+    today_label = Time.zone.today.strftime("%Y-%m-%d")
+    if range != "recent100" and time_count_set[-1][0] != today_label
+      chrono[:labels] << today_label
+      chrono[:datasets][0][:data] << base_count
+    end
+    @chrono = chrono.to_json.html_safe
     gon.chrono = chrono
 
   end

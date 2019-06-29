@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       @posts = Post.where(posted_by: @user.twitterid).reverse_order.limit(8)
     end
     @index = 1
-    get_record_stat @user
+    get_record_stat @user.twitterid
     render template: "pages/home"
   end
 
