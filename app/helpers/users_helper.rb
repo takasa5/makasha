@@ -68,7 +68,7 @@ module UsersHelper
     ## 検索対象の日付を記録
     timestamps = []
     record.each do |data|
-      timestamps << data.created_at.strftime("%Y-%m-%d")
+      timestamps << data.created_at.to_s(:chart)
     end
     ## 同じタイムスタンプが何回登場するかを保持したsetを作る
     time_log = []
@@ -93,7 +93,7 @@ module UsersHelper
         steppedLine: true
       }]
     }
-    most_old_label = most_old_time.strftime("%Y-%m-%d")
+    most_old_label = most_old_time.to_s(:chart)
     if range != "recent100" and time_count_set[0][0] != most_old_label
       chrono[:labels] << most_old_label
       chrono[:datasets][0][:data] << base_count
@@ -103,7 +103,7 @@ module UsersHelper
       chrono[:labels] << set[0]
       chrono[:datasets][0][:data] << base_count
     end
-    today_label = Time.zone.today.strftime("%Y-%m-%d")
+    today_label = Time.zone.today.to_s(:chart)
     if range != "recent100" and time_count_set[-1][0] != today_label
       chrono[:labels] << today_label
       chrono[:datasets][0][:data] << base_count

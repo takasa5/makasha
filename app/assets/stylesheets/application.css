@@ -123,3 +123,8 @@ input[type=text]:focus {
 .base-high-color-text {
   color: #BEE7E8 !important
 }
+
+.twitter-color {
+  background-color: #00acee !important;
+}
+

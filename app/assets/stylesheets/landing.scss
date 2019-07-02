@@ -1,3 +1,58 @@
 // Place all the styles related to the landing controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/* toppage */
+h1 {
+    margin: 0 !important;
+}
+
+#firstview {
+    background-image: image-url("headphones.jpg");
+    background-size: cover;
+    position: relative;
+}
+
+#firstview:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  
+    background-color: rgba(114, 109, 168, 0.5);
+}
+
+section {
+    height: auto;
+    overflow: hidden;
+}
+
+section>.row {
+    padding: 40px 0;
+    z-index: 1;
+    position: relative;
+}
+
+section>div.row>div.col>p {
+    padding: 0 10px;
+}
+
+#add-carousel .carousel-item {
+    height: 420px !important;
+}
+
+.carousel .indicators .indicator-item.active {
+    background-color: rgb(114, 109, 168) !important;
+}
+
+.carousel .indicators .indicator-item {
+    background-color: rgba(114, 109, 168, 0.5) !important;
+}
+
+footer {
+    display: block;
+    bottom: 0;
+    padding: 24px 10px;
+}

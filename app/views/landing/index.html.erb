@@ -1,1 +1,309 @@
-<%= link_to 'Twitter Login', '/auth/twitter' %>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var timer;
+    var elems = document.querySelectorAll('.carousel');
+    var instance = M.Carousel.init(elems, {
+        fullWidth: true,
+        indicators: true,
+        noWrap: true
+    });
+    // timer = setTimeout(autoplay, 5000);
+    function autoplay() {
+        var elem = document.getElementById('add-carousel');
+        var instance = M.Carousel.getInstance(elem);
+        instance.next();
+        timer = setTimeout(autoplay, 5000);
+    }
+
+    var ctx = document.getElementById('artistsCount').getContext('2d');
+    window.acChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [
+                'あいみょん',
+                'サカナクション',
+                'Mr. Children',
+                'Ed Sheeran',
+                'その他'
+            ],
+            datasets: [{
+                data: [12, 7, 5, 2, 3],
+                backgroundColor: [
+                    "#594157",
+                    "#726DA8",
+                    "#7D8CC4",
+                    "#A0D2DB",
+                    "#BEE7E8"
+                ]
+            }]
+        },
+        options: {
+            title: {
+                display: false,
+                text: '最近のアーティスト'
+            },
+            legend: {
+                position: 'right',
+            }
+        }
+    });
+});
+
+function createTweet(elm) {
+    var song = document.getElementById('add-song').value;
+    var artist = document.getElementById('add-artist').value;
+    song = song && artist ? song : "I Don't Care";
+    artist = song && artist ? artist : "Ed Sheeran"
+    var tweet = elm.value.replace("%song%", song).replace("%artist%", artist);
+    document.getElementById('tweet').innerHTML = tweet;
+    
+}
+</script>
+<%= javascript_include_tag 'landing.js' %>
+
+<div class="row mb">
+<section class="center" id="firstview">
+    <div class="row white-text">
+        <div class="col s12 m6">
+        <h1><b>Be Moved By Music.</b></h1>
+        <p class="flow-text col s12 l8 offset-l2">
+        makashaは<b>音楽を愛するすべての人</b>のためのサービスです。
+        <b>自分だけの名曲</b>の数々を記録し、眺め、発見しましょう。
+        あなたの<b>一瞬の感動</b>を、makashaに残しておきませんか？
+        </p>
+        <%= link_to '/auth/twitter',
+            class: "waves-effect waves-light btn-large twitter-color",
+            style: 'text-transform: none !important' do%>
+            <i class="fab fa-twitter fa-fw fa-lg" ></i> Twitterで登録/ログイン
+        <% end %>
+        </div>
+    </div>
+</section>
+<section class="center">
+    <div class="row">
+        <div class="col s12 m6">
+            <h4>名曲を記録しよう</h4>
+            <p class="flow-text">
+            「この曲、いいな」と思ったら、楽曲名とアーティスト名を入力して「マイレコード」に記録しましょう。
+            ツイートテンプレート機能で、Twitterへの共有も思いのままです。
+            </p>
+        </div>
+        <div class="carousel carousel-slider col s12 m6" id="add-carousel">
+            <div class="carousel-item">
+            <div class="container">
+                <div class="card col s10 offset-s1">
+                    <div class="card-content left-align">
+                        <h5>名曲を追加する</h5>
+                        <%= form_with model: Post.new, local: true do |form| %>
+                            <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
+                            <%= form.text_field :song, id: "add-song" %>
+                            <br>
+                            <i class="material-icons" style="font-size:1rem;">person</i><%= form.label :artist %>
+                            <%= form.text_field :artist, id: "add-artist" %>
+                            <br>
+                            <label>
+                                <%= form.check_box 'twitter', :id=>"check" %>
+                                <span>Twitterへ投稿</span>
+                            </label>
+                            <br><br>
+                            <div class="right-align">
+                                <%= form.button "追加", type: "button", :class=>"waves-effect med-color btn disabled add-btn white-text"%>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+                <span class="col s12">
+                    最低限の入力で簡単に記録できます
+                </span>
+            </div>
+            </div>
+            <div class="carousel-item">
+            <div class="container">
+                <div class="card col s12">
+                    <div class="left-align" style="padding: 24px 0">
+                        <%= form_with model: User.new, class: "center" do |f| %>
+                            <div class="input-field">
+                                <%= f.text_area :template, class: "materialize-textarea", maxlength: 100, data: {length: 100}, onkeyup: "createTweet(this)"%>
+                                <%= f.label :template %>
+                            </div>
+                        <% end %>
+                    <ul class="collection">
+                        <li class="collection-item avatar">
+                            <img src="images/yuna.jpg" alt="" class="circle">
+                        makasha <span style="color: gray; font-size: 0.8rem">たった今</span>
+                        <div id="tweet">I Don't Care - Ed Sheeran</div>
+                        </li>
+                    </div>
+                </div>
+                <span class="col s12">
+                    テンプレートと連動してツイートします
+                </span>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<section class="center">
+    <div class="row">
+        <div class="col s12 m6">
+        <h4>記録を振り返ろう</h4>
+        <p class="flow-text">
+        いつ、誰の、何の曲に感動したのか、すべての記録がいつでも確認できます。
+        強力な可視化機能で直感的に理解することもできます。
+        </p>
+        </div>
+        <div class="carousel carousel-slider col s12 m6">
+            <div class="carousel-item">
+            <div class="container">
+                <div class="card col s12">
+                    <div style="padding: 24px 0;">
+                        <ul class="collection">
+                            <li class="collection-item left-align">
+                                <div>
+                                    <i class="material-icons grey-text text-lighten-1 secondary-content" style="font-size:1.2rem">edit</i>
+                                    <b>マリーゴールド</b> - あいみょん<br>
+                                    <span class="grey-text"><%= Time.now.to_s(:posted_at) %></span>
+                                    <span class="main-color-text">
+                                        1日ぶり 
+                                        2回目
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="collection-item left-align">
+                                <div>
+                                    <i class="material-icons grey-text text-lighten-1 secondary-content" style="font-size:1.2rem">edit</i>
+                                    <b>新宝島</b> - サカナクション<br>
+                                    <span class="grey-text"><%= (Time.now - 3.hour).to_s(:posted_at) %></span>
+                                    <span class="main-color-text">
+                                        10日ぶり 
+                                        3回目
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="collection-item left-align">
+                                <div>
+                                    <i class="material-icons grey-text text-lighten-1 secondary-content" style="font-size:1.2rem">edit</i>
+                                    <b>マリーゴールド</b> - あいみょん<br>
+                                    <span class="grey-text"><%= (Time.now - 1.day).to_s(:posted_at) %></span>
+                                    <span class="main-color-text">
+                                        1回目
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="col s12">
+                    マイページで自分の記録を確認できます
+                </span>
+            </div>
+            </div>
+            <div class="carousel-item">
+            <div class="container">
+                <div class="card col s12">
+                    <div style="padding: 24px 0;">
+                        <h6 class="center">お気に入りアーティスト</h6>
+                        <canvas id="artistsCount"></canvas>
+                    </div>
+                </div>
+                <span class="col s12">
+                    最近の好みのアーティストが一目でわかります
+                </span>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<section class="center">
+    <div class="row">
+        <div class="col s12 m6">
+        <h4>名曲と出会おう</h4>
+        <p class="flow-text">
+        自分だけでなく、他のユーザーの記録も閲覧することができます。
+        似た趣味の人や、あるいは全く似ていない人の感じる「名曲」をあなたも聴いてみませんか？
+        </p>
+        </div>
+        <div class="carousel carousel-slider col s12 m6">
+            <div class="carousel-item">
+            <div class="container">
+                <div class="card col s12">
+                    <div style="padding: 24px 0;">
+                        <ul class="collection">
+                            <li class="collection-item left-align avatar">
+                                <img src="images/yuna.jpg" alt="" class="circle">
+                                <div>
+                                    <a>太郎</a><br>
+                                    <b>マリーゴールド</b> - あいみょん<br>
+                                    <span class="grey-text"><%= Time.now.to_s(:posted_at) %></span>
+                                    <span class="main-color-text">
+                                        1日ぶり 
+                                        2回目
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="collection-item left-align avatar">
+                                <img src="images/yuna.jpg" alt="" class="circle">
+                                <div>
+                                    <a>John</a><br>
+                                    <b>Señorita</b> - Shawn Mendes<br>
+                                    <span class="grey-text"><%= (Time.now - 3.minute).to_s(:posted_at) %></span>
+                                    <span class="main-color-text">
+                                        5回目
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="collection-item left-align avatar">
+                                <img src="images/yuna.jpg" alt="" class="circle">
+                                <div>
+                                    <a>†TSURUGI†</a><br>
+                                    <b>白日</b> - King Gnu<br>
+                                    <span class="grey-text"><%= (Time.now - 5.minute).to_s(:posted_at) %></span>
+                                    <span class="main-color-text">
+                                        1回目
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="col s12">
+                    誰かの「いま」の名曲がわかります<br>
+                    <span class="grey-text" style="font-size: 0.8em;">
+                    ※自分と似た趣味の人を探す機能も実装予定です
+                    </span>
+                </span>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<section class="col s12 center">
+    <h5>記録はすぐに始められます</h5>
+    <br>
+    <%= link_to '/auth/twitter',
+        class: "waves-effect waves-light btn-large twitter-color",
+        style: 'text-transform: none !important;' do%>
+        <i class="fab fa-twitter fa-fw fa-lg" ></i> Twitterで登録/ログイン
+    <% end %>
+</section>
+</div>
+<footer class="accent-color">
+    ©︎2019 takasa5
+    <div style="font-size: 0.5rem;font-style: italic;">
+        <span style="font-style: normal">Top Image:</span>
+        <a href="https://www.flickr.com/photos/7215368@N04/3669250134">"Heads on Display"</a>
+        <span>
+            by <a href="https://www.flickr.com/photos/7215368@N04">HogueLikeWoah</a>
+        </span>
+        is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/?ref=ccsearch&atype=html" style="margin-right: 5px;">CC BY-NC-SA 2.0</a>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/?ref=ccsearch&atype=html" target="_blank" rel="noopener noreferrer" style="display: inline-block;white-space: none;opacity: .7;margin-top: 2px;margin-left: 3px;height: 1rem !important;">
+            <img style="height: inherit;margin-right: 0;display: inline-block;" src="https://ccsearch.creativecommons.org/static/img/cc_icon.svg" />
+            <img style="height: inherit;margin-right: 0;display: inline-block;" src="https://ccsearch.creativecommons.org/static/img/cc-by_icon.svg" />
+            <img style="height: inherit;margin-right: 0;display: inline-block;" src="https://ccsearch.creativecommons.org/static/img/cc-nc_icon.svg" />
+            <img style="height: inherit;margin-right: 0;display: inline-block;" src="https://ccsearch.creativecommons.org/static/img/cc-sa_icon.svg" />
+        </a>
+    </div>
+</footer>
