@@ -19,5 +19,6 @@ module Masterpiece
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     
     config.time_zone = 'Asia/Tokyo'
+    # Rails.configuration.action_controller.per_form_csrf_tokens = true
   end
 end

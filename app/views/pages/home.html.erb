@@ -25,7 +25,7 @@
                 <span>Twitterへ投稿</span>
             </label>
             <div class="modal-footer">
-                <%= form.submit "追加", :class=>"waves-effect med-color btn disabled add-btn white-text" %>
+                <%= form.button "追加", type: "button", :class=>"waves-effect med-color btn disabled add-btn white-text", onclick: "submit()" %>
             </div>
         <% end %>
         </div>

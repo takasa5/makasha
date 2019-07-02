@@ -1,7 +1,16 @@
+function _delete() {
+    var elm = document.createElement('input');
+    elm.setAttribute('type', 'hidden');
+    elm.setAttribute('name', 'delete');
+    elm.setAttribute('value', 1);
+    var form = document.getElementById('edit');
+    form.appendChild(elm);
+    form.submit();
+}
 var modal = document.getElementById('modal_delete_record');
 var inner = `
     <h5>記録を編集する</h5>
-    <%= form_with model: @post, url: "record/edit/#{@post.id}", local: true do |form| %>
+    <%= form_with model: @post, url: "record/edit/#{@post.id}", local: true, id: "edit", authenticity_token: form_authenticity_token do |form| %>
         <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
         <%= form.text_field :song, onkeyup: 'checkInputs("edit-btn")', id: "edit-btn-song" %>
         <br>
@@ -9,8 +18,8 @@ var inner = `
         <%= form.text_field :artist, onkeyup: 'checkInputs("edit-btn")', id: "edit-btn-artist" %>
         <br>
         <div class="modal-footer">
-            <%= form.submit "削除", :class=>"left waves-effect base-low-color btn ", name: "delete"%>
-            <%= form.submit "編集", :class=>"waves-effect med-color btn edit-btn"%>
+            <%= form.button "削除", type: "button", :class=>"left waves-effect base-low-color btn ", name: "delete", onclick: "_delete()"%>
+            <%= form.button "編集", type: "button", :class=>"waves-effect med-color btn edit-btn", onclick: "submit()"%>
         </div>
     <% end %>
 `
