@@ -25,22 +25,11 @@
       <div class="nav-wrapper main-color">
         <a href="/" class="brand-logo center base-high-color-text">makasha</a>
         <ul class="left">
-        <a class='sidenav-trigger' data-target='sidenav'>
+        <a id="sidenav-btn" data-target='sidenav' onclick="openSideNav(this)">
             <i class="material-icons base-high-color-text">menu</i>
         </a>
         </ul>
-        <ul class="right hide-on-med-and-down">
-        <% if logged_in? %>
-           <li><a href="/" class="white-text text-darken-3">
-            <i class="material-icons left">home</i>ホーム</a></li>
-          <li><a href="/setting" class="white-text text-darken-3">
-            <i class="material-icons left">brightness_high</i>設定
-          </a></li>
-          <li><a href="/signout" class="white-text text-darken-3">
-            <i class="material-icons left">exit_to_app</i>ログアウト
-          </a></li>
-        <% end %>
-        </ul>
+        
       </div>
     </nav>
     <ul id='sidenav' class='sidenav left'>

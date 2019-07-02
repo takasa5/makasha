@@ -30,3 +30,10 @@ function checkInputs(className) {
         console.log(document.getElementsByClassName(className)[0]);
     }
 }
+
+function openSideNav(elm) {
+    var target = elm.getAttribute("data-target");
+    var elem = document.getElementById(target);
+    var instance = M.Sidenav.getInstance(elem);
+    instance.open();
+}
