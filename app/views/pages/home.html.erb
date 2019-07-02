@@ -37,10 +37,21 @@
     </div>
 <% end %>
 <div class="container">
-    <% if flash[:notice] %>
-    <div class="notice">
-        <%= flash[:notice]%>
-    </div>
+    <% if logged_in? %>
+        <% if flash[:notice] %>
+        <div class="notice">
+            <%= flash[:notice]%>
+        </div>
+        <% end %>
+    <% else %>
+        <div class="col s12 center">
+            makashaで名曲を記録しませんか？
+            <%= link_to '/auth/twitter',
+                class: "waves-effect waves-light btn twitter-color",
+                style: 'text-transform: none !important;' do%>
+                <i class="fab fa-twitter fa-fw" ></i> Twitterで登録/ログイン
+            <% end %>
+        </div>
     <% end %>
     <div class="card">
         <div class="card-content">
