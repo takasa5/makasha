@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>makasha</title>
+    <title>Makasha</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%= include_gon(watch: true) %>
+    <%= favicon_link_tag('b-icon.png') %>
+    <%= include_gon() %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -23,7 +24,9 @@
   <%= javascript_include_tag 'init.js' %>
     <nav>
       <div class="nav-wrapper main-color">
-        <a href="/" class="brand-logo center base-high-color-text">makasha</a>
+        <a href="/" class="center brand-logo makasha-icon">
+          <%= image_tag('b-icon.png', class: "makasha-icon") %>
+        </a>
         <ul class="left">
         <a id="sidenav-btn" data-target='sidenav' onclick="openSideNav(this)">
             <i class="material-icons base-high-color-text">menu</i>

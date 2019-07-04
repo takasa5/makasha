@@ -128,3 +128,6 @@ input[type=text]:focus {
   background-color: #00acee !important;
 }
 
+.makasha-icon {
+  height: inherit;
+}

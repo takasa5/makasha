@@ -67,9 +67,9 @@ function createTweet(elm) {
         <div class="col s12 m6">
         <h1><b>Be Moved By Music.</b></h1>
         <p class="flow-text col s12 l8 offset-l2">
-        makashaは<b>音楽を愛するすべての人</b>のためのサービスです。
+        Makashaは<b>音楽を愛するすべての人</b>のためのサービスです。
         <b>自分だけの名曲</b>の数々を記録し、眺め、発見しましょう。
-        あなたの<b>一瞬の感動</b>を、makashaに残しておきませんか？
+        あなたの<b>一瞬の感動</b>を、Makashaに残しておきませんか？
         </p>
         <%= link_to '/auth/twitter',
             class: "waves-effect waves-light btn-large twitter-color",
@@ -129,8 +129,8 @@ function createTweet(elm) {
                         <% end %>
                     <ul class="collection">
                         <li class="collection-item avatar">
-                            <img src="images/yuna.jpg" alt="" class="circle">
-                        makasha <span style="color: gray; font-size: 0.8rem">たった今</span>
+                            <%= image_tag('b-icon.png', class: "circle main-color") %>
+                        Makasha <span style="color: gray; font-size: 0.8rem">たった今</span>
                         <div id="tweet">I Don't Care - Ed Sheeran</div>
                         </li>
                     </div>
@@ -225,14 +225,14 @@ function createTweet(elm) {
         似た趣味の人や、あるいは全く似ていない人の感じる「名曲」をあなたも聴いてみませんか？
         </p>
         </div>
-        <div class="carousel carousel-slider col s12 m6">
+        <div class="carousel carousel-slider col s12 m6" id="social-carousel">
             <div class="carousel-item">
             <div class="container">
                 <div class="card col s12">
                     <div style="padding: 24px 0;">
                         <ul class="collection">
                             <li class="collection-item left-align avatar">
-                                <img src="images/yuna.jpg" alt="" class="circle">
+                                <%= image_tag('b-icon.png', class: "circle main-color") %>
                                 <div>
                                     <a>太郎</a><br>
                                     <b>マリーゴールド</b> - あいみょん<br>
@@ -244,7 +244,7 @@ function createTweet(elm) {
                                 </div>
                             </li>
                             <li class="collection-item left-align avatar">
-                                <img src="images/yuna.jpg" alt="" class="circle">
+                                <%= image_tag('b-icon.png', class: "circle med-color") %>
                                 <div>
                                     <a>John</a><br>
                                     <b>Señorita</b> - Shawn Mendes<br>
@@ -255,7 +255,7 @@ function createTweet(elm) {
                                 </div>
                             </li>
                             <li class="collection-item left-align avatar">
-                                <img src="images/yuna.jpg" alt="" class="circle">
+                                <%= image_tag('b-icon.png', class: "circle accent-color") %>
                                 <div>
                                     <a>†TSURUGI†</a><br>
                                     <b>白日</b> - King Gnu<br>
