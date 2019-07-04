@@ -20,5 +20,13 @@ class UsersController < ApplicationController
     render template: "pages/home"
   end
 
+  # プロフィール，テンプレートの更新
+  def update
+    current_user.update(
+      name: params[:user][:name],
+      profile: params[:user][:profile],
+      template: params[:user][:template]
+    )
+  end
   
 end

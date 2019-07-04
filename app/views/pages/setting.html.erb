@@ -7,6 +7,10 @@
 </div>
 <%= form_with model: @user, class: "center" do |f| %>
     <div class="input-field">
+        <%= f.text_field :name, maxlength: 20, data: {length: 20} %>
+        <%= f.label :name%>
+    </div>
+    <div class="input-field">
         <%= f.text_area :profile, class: "materialize-textarea", maxlength: 100, data: {length: 100}%>
         <%= f.label :profile %>
     </div>
@@ -16,7 +20,13 @@
     </div>
     <div class="row">
         <div class="col s12">
-        <%= f.submit "更新", :class=>"waves-effect med-color btn white-text", :id=>"reload-btn" %>
+        <%= f.button "更新", type: "button", :class=>"waves-effect med-color btn white-text", :id=>"reload-btn",
+            onclick: "M.Toast.dismissAll();
+                M.toast({
+                    html: '更新しました',
+                    classes: 'base-low-color'
+                });
+                submit()" %>
         </div>
     </div>
 <% end %>

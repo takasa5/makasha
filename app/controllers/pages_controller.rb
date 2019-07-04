@@ -50,14 +50,6 @@ class PagesController < ApplicationController
     render 'setting.html.erb'
   end
 
-  # プロフィール，テンプレートの更新
-  def update
-    current_user.update(
-      profile: params[:user][:profile],
-      template: params[:user][:template]
-    )
-  end
-
   # グラフの更新
   def chart_update()
     get_record_stat(params[:user], range: params[:range])

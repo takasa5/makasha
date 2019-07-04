@@ -2,7 +2,7 @@
 <%= javascript_include_tag 'home.js' %>
 
 <% flash.each do |key, value| %>
-    <% key %><% value %>
+    <%= javascript_tag "M.toast({html: '#{value}'})" %>
 <% end %>
 <% if current_page?(controller: "pages", action: "home") %>
     <div class="fixed-action-btn" id="floating-add-btn">
@@ -37,13 +37,7 @@
     </div>
 <% end %>
 <div class="container">
-    <% if logged_in? %>
-        <% if flash[:notice] %>
-        <div class="notice">
-            <%= flash[:notice]%>
-        </div>
-        <% end %>
-    <% else %>
+    <% if not logged_in? %>
         <div class="col s12 center">
             Makashaで名曲を記録しませんか？
             <%= link_to '/auth/twitter',
