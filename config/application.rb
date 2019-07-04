@@ -20,5 +20,7 @@ module Masterpiece
     
     config.time_zone = 'Asia/Tokyo'
     # Rails.configuration.action_controller.per_form_csrf_tokens = true
+    # heroku
+    config.assets.initialize_on_precompile = false
   end
 end
