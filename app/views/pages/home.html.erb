@@ -145,6 +145,7 @@
         <% end %>
         </div>
     <ul id="stat-collection" class="collection row">
+    <% if @data_exists %>
         <li class="collection-item col s12 m6">
             <h6 class="center">記録数</h6>
             <canvas id="recordChrono"></canvas>
@@ -167,6 +168,11 @@
                 </tbody>
             </table>
         </li>
+    <% else %>
+        <li class="collection-item col s12 m6">
+            <h6 class="center">データがありません</h6>
+        </li>
+    <% end %>
     </ul>
     </div>
 </div>

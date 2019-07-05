@@ -19,7 +19,12 @@ class PagesController < ApplicationController
         @posts = Post.where(posted_by: @user.twitterid).reverse_order.limit(list_num)
       end
       @index = 1
-      get_record_stat current_user.twitterid
+      if cnt != 0
+        get_record_stat current_user.twitterid
+        @data_exists = true
+      else
+        @data_exists = false
+      end
     else
       redirect_to lp_path
     end

@@ -16,7 +16,12 @@ class UsersController < ApplicationController
       @posts = Post.where(posted_by: @user.twitterid).reverse_order.limit(8)
     end
     @index = 1
-    get_record_stat @user.twitterid
+    if cnt != 0
+      get_record_stat @user.twitterid
+      @data_exists = true
+    else
+      @data_exists = false
+    end
     render template: "pages/home"
   end
 

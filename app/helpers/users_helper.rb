@@ -14,7 +14,7 @@ module UsersHelper
     end
     # 最近のアーティスト比率
     ## ユーザの最新100件のうち，アーティストと出現回数の組を取得
-    data = record.group(:artist).count.sort_by{|a| a[1]}.reverse
+    data = record.group(:id, :artist).count.sort_by{|a| a[1]}.reverse
     ## ハッシュに出現数を記録
     artists_count = {
       labels: [],
@@ -48,7 +48,7 @@ module UsersHelper
     gon.artists_count = artists_count
     @artists_count = artists_count.to_json.html_safe
     # 曲のランキング
-    data = record.group(:artist, :song).count.sort_by{|a| a[1]}.reverse[0..2]
+    data = record.group(:id, :artist, :song).count.sort_by{|a| a[1]}.reverse[0..2]
     @rank = data
 
     # レコード増加
