@@ -1,24 +1,15 @@
-# README
+# makasha
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## screenshots
 
-Things you may want to cover:
+<img src="./screenshots/shot1.png" width="400px">
 
-* Ruby version
+## overview
+makashaは音楽を記録するWebサービスです．単に聴いた音楽を記録するというより，特に印象に残ったもの(いわゆる「名曲」)だけを記録しておくことを軸としています． 
+主な機能は3つで，  
 
-* System dependencies
+- 名曲を記録する
+- 記録したデータの可視化
+- 名曲を発見する
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+音楽を聴き，名曲と出会うという一連の活動をもっと楽に楽しくすることが目標です．
