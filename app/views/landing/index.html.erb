@@ -87,11 +87,11 @@ function createTweet(elm) {
             ツイートテンプレート機能で、Twitterへの共有も思いのままです。
             </p>
         </div>
-        <div class="carousel carousel-slider col s12 m6" id="add-carousel">
+        <div class="carousel carousel-slider col s12 m6" id="">
             <div class="carousel-item">
             <div class="container">
                 <div class="card col s10 offset-s1">
-                    <div class="card-content left-align">
+                    <div class="card-content left-align" style="padding: 20px 24px">
                         <h5>名曲を追加する</h5>
                         <%= form_with model: Post.new, local: true do |form| %>
                             <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
@@ -156,7 +156,7 @@ function createTweet(elm) {
             <div class="carousel-item">
             <div class="container">
                 <div class="card col s12">
-                    <div style="padding: 24px 0;">
+                    <div style="padding: 20px 0;">
                         <ul class="collection">
                             <li class="collection-item left-align">
                                 <div>
@@ -228,7 +228,7 @@ function createTweet(elm) {
             <div class="carousel-item">
             <div class="container">
                 <div class="card col s12">
-                    <div style="padding: 24px 0;">
+                    <div style="padding: 20px 0;">
                         <ul class="collection">
                             <li class="collection-item left-align avatar">
                                 <%= image_tag('b-icon.png', class: "circle main-color") %>
