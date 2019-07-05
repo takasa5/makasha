@@ -8,4 +8,4 @@
 # カスタムフォーマットを定義
 Time::DATE_FORMATS[:posted_at] = "%Y/%m/%d %H:%M"
 Date::DATE_FORMATS[:default]   = "%Y年%m月%d日"
-Date::DATE_FORMATS[:chart]     = "%Y-%m-%d"
+Time::DATE_FORMATS[:chart]     = "%Y-%m-%d"

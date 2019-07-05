@@ -2,19 +2,19 @@ module UsersHelper
 
   def get_record_stat(user, range: "recent100", legend_limit: 4)
     # 対象レコードデータ
-    record = Post.where(posted_by: user).reverse_order
+    record = Post.where(posted_by: user)
     if range == "recent100"
       record = record.limit(100)
     elsif range == "week"
-      record = record.where(created_at: (Time.zone.today - 7)..Time.zone.today)
+      record = record.where(created_at: (Time.zone.today - 7)..(Time.zone.today + 1))
     elsif range == "month"
-      record = record.where(created_at: (Time.zone.today - 30)..Time.zone.today)
+      record = record.where(created_at: (Time.zone.today - 30)..(Time.zone.today + 1))
     elsif range == "year"
-      record = record.where(created_at: (Time.zone.today - 365)..Time.zone.today)
+      record = record.where(created_at: (Time.zone.today - 365)..(Time.zone.today + 1))
     end
     # 最近のアーティスト比率
     ## ユーザの最新100件のうち，アーティストと出現回数の組を取得
-    data = record.group(:id, :artist).count.sort_by{|a| a[1]}.reverse
+    data = record.group(:artist).count.sort_by{|a| a[1]}.reverse
     ## ハッシュに出現数を記録
     artists_count = {
       labels: [],
@@ -48,7 +48,7 @@ module UsersHelper
     gon.artists_count = artists_count
     @artists_count = artists_count.to_json.html_safe
     # 曲のランキング
-    data = record.group(:id, :artist, :song).count.sort_by{|a| a[1]}.reverse[0..2]
+    data = record.group(:artist, :song).count.sort_by{|a| a[1]}.reverse[0..2]
     @rank = data
 
     # レコード増加
@@ -67,7 +67,7 @@ module UsersHelper
     base_count = Post.where(posted_by: user, created_at: search_range).count
     ## 検索対象の日付を記録
     timestamps = []
-    record.each do |data|
+    record.reverse.each do |data|
       timestamps << data.created_at.to_s(:chart)
     end
     ## 同じタイムスタンプが何回登場するかを保持したsetを作る
@@ -94,7 +94,12 @@ module UsersHelper
       }]
     }
     most_old_label = most_old_time.to_s(:chart)
-    if range != "recent100" and time_count_set[0][0] != most_old_label
+    # データが1日分しかないとき，グラフに正常に反映させる
+    if range == "recent100" and time_count_set.count == 1
+      chrono[:labels] << (most_old_time - 7.day).to_s(:chart)
+      chrono[:datasets][0][:data] << base_count
+    end
+    if (range != "recent100" and time_count_set[0][0] != most_old_label)
       chrono[:labels] << most_old_label
       chrono[:datasets][0][:data] << base_count
     end
@@ -104,7 +109,7 @@ module UsersHelper
       chrono[:datasets][0][:data] << base_count
     end
     today_label = Time.zone.today.to_s(:chart)
-    if range != "recent100" and time_count_set[-1][0] != today_label
+    if (range != "recent100" and time_count_set[-1][0] != today_label)
       chrono[:labels] << today_label
       chrono[:datasets][0][:data] << base_count
     end
