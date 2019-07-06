@@ -131,3 +131,7 @@ input[type=text]:focus {
 .makasha-icon {
   height: inherit;
 }
+
+.material-tooltip {
+  max-width: calc(100% - 20px) !important;
+}

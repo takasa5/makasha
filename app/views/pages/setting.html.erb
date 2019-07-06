@@ -14,7 +14,7 @@
         <%= f.text_area :profile, class: "materialize-textarea", maxlength: 100, data: {length: 100}%>
         <%= f.label :profile %>
     </div>
-    <div class="input-field">
+    <div class="input-field tooltipped" data-tooltip="以下の%に囲まれた文字列は自動的に置換されます：<br>%song%: 楽曲名<br>%artist%: アーティスト名">
         <%= f.text_area :template, class: "materialize-textarea", maxlength: 100, data: {length: 100}%>
         <%= f.label :template %>
     </div>
