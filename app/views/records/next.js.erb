@@ -25,8 +25,9 @@ var inner = `
 recordsWrapper.innerHTML += inner;
 
 // 「続きを表示」ボタンの更新
+var postsCount = recordsWrapper.childElementCount;
 var nextButtonWrapper = document.getElementById('next-btn-wrapper');
-if (<%= @terminal_flag %>) {
+if (postsCount == <%= @all_count %>) {
     var inner = `
     <button class="btn disabled waves-effect waves-light main-color col s12">
         ここが最初のレコードです。

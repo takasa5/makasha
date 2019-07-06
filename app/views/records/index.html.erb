@@ -32,9 +32,17 @@
     </li>
 <% end %>
 </ul>
-<div id="next-btn-wrapper" class="row">
-    <button class="btn waves-effect waves-light main-color col s12">
-        <%= link_to "続きを表示", records_next_path(start: 10), remote: true, class: "white-text" %>
-    </button>
-</div>
+<% if @all_count <= 10 %>
+    <div id="next-btn-wrapper" class="row">
+        <button class="btn disabled waves-effect waves-light main-color col s12">
+                ここが最初のレコードです。
+        </button>
+    </div>
+<% else %>
+    <div id="next-btn-wrapper" class="row">
+        <button class="btn waves-effect waves-light main-color col s12">
+            <%= link_to "続きを表示", records_next_path(start: 10), remote: true, class: "white-text" %>
+        </button>
+    </div>
+<% end %>
 </div>
