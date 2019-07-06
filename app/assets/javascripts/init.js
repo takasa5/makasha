@@ -27,7 +27,6 @@ function checkInputs(className) {
         document.getElementsByClassName(className)[0].classList.add('disabled');
     } else {
         document.getElementsByClassName(className)[0].classList.remove('disabled');
-        console.log(document.getElementsByClassName(className)[0]);
     }
 }
 

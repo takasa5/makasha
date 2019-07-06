@@ -1,3 +1,5 @@
+require 'time'
+
 module UsersHelper
 
   def get_record_stat(user, range: "recent100", legend_limit: 4)
@@ -55,13 +57,13 @@ module UsersHelper
     # TODO: 最初から日時で切り出さないとおかしくなる?
     # 記録対象の最古timeをとってきて，それ以前のデータをcount
     if range == "recent100"
-      most_old_time = record.last.created_at
+      most_old_time = record.first.created_at
     elsif range == "week"
-      most_old_time = Time.zone.today - 7
+      most_old_time = 1.week.ago
     elsif range == "month"
-      most_old_time = Time.zone.today - 30
+      most_old_time = 1.month.ago
     elsif range == "year"
-      most_old_time = Time.zone.today - 365
+      most_old_time = 1.year.ago
     end
     search_range = 100.year.ago..(most_old_time - 1)
     base_count = Post.where(posted_by: user, created_at: search_range).count
@@ -94,9 +96,9 @@ module UsersHelper
       }]
     }
     most_old_label = most_old_time.to_s(:chart)
-    # データが1日分しかないとき，グラフに正常に反映させる
-    if range == "recent100" and time_count_set.count == 1
-      chrono[:labels] << (most_old_time - 7.day).to_s(:chart)
+    # データが1週間未満しかないとき，グラフに正常に反映させる
+    if range == "recent100" and DateTime.parse(time_count_set[0][0]) > 1.week.ago
+      chrono[:labels] << (1.week.ago).to_s(:chart)
       chrono[:datasets][0][:data] << base_count
     end
     if (range != "recent100" and time_count_set[0][0] != most_old_label)

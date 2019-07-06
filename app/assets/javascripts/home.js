@@ -29,10 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 xAxes: [{
                     type: 'time',
                     time: {
-                        // displayFormats: {
-                        //     unit: 'week',
-                        //     week: 'll'
-                        // }
+                        displayFormats: {
+                            unit: 'week',
+                            day: 'M/D'
+                        }
                     }
                 }]
             },
