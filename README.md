@@ -2,9 +2,13 @@
 
 ## screenshots
 
-<img src="./screenshots/shot1.png" width="300px">
-<img src="./screenshots/shot2.png" width="300px">
-<img src="./screenshots/shot3.png" width="300px"> 
+<table border="0">
+<tr>
+<td><img src="./screenshots/shot1.png" width="250px"></td>
+<td><img src="./screenshots/shot2.png" width="250px"></td>
+<td><img src="./screenshots/shot3.png" width="250px"></td>
+</tr>
+</table>
 
 
 ## overview
