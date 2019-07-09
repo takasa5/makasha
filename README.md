@@ -2,8 +2,9 @@
 
 ## screenshots
 
-<img src="./screenshots/shot1.png" width="400px">
-
+<img src="./screenshots/shot1.png" width="300px">
+<img src="./screenshots/shot2.png" width="300px">
+<img src="./screenshots/shot3.png" width="300px"> 
 ## overview
 makashaは音楽を記録するWebサービスです．単に聴いた音楽を記録するというより，特に印象に残ったもの(いわゆる「名曲」)だけを記録しておくことを軸としています． 
 主な機能は3つで，  
