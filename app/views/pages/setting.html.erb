@@ -30,4 +30,24 @@
         </div>
     </div>
 <% end %>
+<div class="row" id="delete-row">
+    <div class="col s12 center">
+        <a class="modal-trigger waves-effect btn-small white lighten-5 red-text" href="#delete-modal">アカウントを削除する</a>
+    </div>
+</div>
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+        <h5>アカウントの削除</h5>
+        この操作よって過去に記録した全データおよびアカウントの情報は削除され、復元することはできません。
+        <br>
+        上記に納得いただける場合、下の「削除」を押すことでアカウントを削除できます。
+        <div class="modal-footer">
+            <a class="left btn-flat waves-effect" onclick="modalCancel()">キャンセル</a>
+            <%= link_to "削除",
+                delete_path(authenticity_token: form_authenticity_token),
+                method: :post,
+                class: "right btn-flat waves-effect red-text" %>
+        </div>
+    </div>
+</div>
 </div>

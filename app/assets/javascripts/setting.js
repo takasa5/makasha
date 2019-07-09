@@ -8,3 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
         position: 'top'
     });
 });
+
+function modalCancel() {
+    var elem = document.getElementById('delete-modal');
+    var instance = M.Modal.getInstance(elem);
+    instance.close();
+}

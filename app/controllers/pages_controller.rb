@@ -7,7 +7,8 @@ class PagesController < ApplicationController
     if logged_in?
       @user = current_user
       if @user.nil?
-        session[:user_id] = nil
+        log_out
+        redirect_to lp_path
       else
         cnt = Post.where(posted_by: @user.twitterid).count
         @records = cnt
@@ -17,13 +18,13 @@ class PagesController < ApplicationController
           @count = cnt / list_num + 1
         end
         @posts = Post.where(posted_by: @user.twitterid).reverse_order.limit(list_num)
-      end
-      @index = 1
-      if cnt != 0
-        get_record_stat current_user.twitterid
-        @data_exists = true
-      else
-        @data_exists = false
+        @index = 1
+        if cnt != 0
+          get_record_stat current_user.twitterid
+          @data_exists = true
+        else
+          @data_exists = false
+        end
       end
     else
       redirect_to lp_path
@@ -53,6 +54,20 @@ class PagesController < ApplicationController
     @user = current_user
 
     render 'setting.html.erb'
+  end
+
+  # アカウント削除
+  def delete_account
+    @user = current_user
+    # ログアウト処理
+    log_out
+    reset_session
+    # postの削除
+    Post.where(posted_by: @user.twitterid).destroy_all
+    # ユーザデータの削除
+    @user.destroy
+    
+    render 'deleted.html.erb'
   end
 
   # グラフの更新

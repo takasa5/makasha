@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/records' => 'records#index'
   get '/records/next' => 'records#next'
   post '/chart' => 'pages#chart_update'
+  post '/delete' => 'pages#delete_account'
 
   resources :users
   resources :posts
