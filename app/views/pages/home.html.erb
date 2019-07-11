@@ -76,64 +76,80 @@
         </li>
     </ul>
     <div id="list">
-        <ul class="collection">
-        <% @posts.each do |post| %>
-        <li class="collection-item">
-            <div>
-                <% if current_page?(controller: "pages", action: "home") %>
-                    <%= link_to record_edit_path(post: post.id), remote: true, class: "secondary-content" do %>
-                        <i class="material-icons grey-text text-lighten-1" style="font-size:1.2rem">edit</i>
-                    <% end %>
-                <% end %>
-                <b><%= post.song %></b> - <%= post.artist -%><br>
-                <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
-                <span class="main-color-text">
-                    <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
-                        <% if post.period_before.to_i > 24 %>
-                            <%= post.period_before.to_i / 24 %>日ぶり
-                        <% elsif post.period_before.to_i > 24 * 365 %>
-                            <%= post.period_before.to_i / (24 * 365) %>年ぶり 
+        <% if current_page?(controller: "pages", action: "home") and @posts.blank? %>
+            <div class="container center">
+                <h3 class="flow-text">名曲を追加してみましょう。</h3>
+                このページはあなたのページです。
+                右下の+ボタンから、新しく名曲を追加できます。同じ曲を何度も追加することをためらう必要はありません(むしろ歓迎です)。
+                良いと思った曲を思うがままに追加してください。
+                <h3 class="flow-text">記録を見てみましょう。</h3>
+                記録が追加され次第、「RECORD」ページ(ここです)に記録が追加されていきます。
+                また、この説明の上にあるタブを「CHART」に切り替えることで、あなたの記録をグラフで確認することもできます。
+                <h3 class="flow-text">名曲を探しにいきましょう。</h3>
+                画面左上のメニューから、「みんなのレコード」を選ぶことで、他の誰かの感じた"名曲"を見ることができます。
+                また、その人のページに飛ぶこともできます。新しい名曲との出会いがありますように。
+            </div>
+        <% else %>
+            <ul class="collection">
+            <% @posts.each do |post| %>
+            <li class="collection-item">
+                <div>
+                    <% if current_page?(controller: "pages", action: "home") %>
+                        <%= link_to record_edit_path(post: post.id), remote: true, class: "secondary-content" do %>
+                            <i class="material-icons grey-text text-lighten-1" style="font-size:1.2rem">edit</i>
                         <% end %>
                     <% end %>
-                    <%= post.count.to_s %>回目
-                </span>
-            </div>
-        </li>
-        <% end %>
-        </ul>
-        <ul class="pagination center-align">
-            <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
-            <% if @count > 4 %> <!-- ページが多い場合 -->
-                <li class="pg_btn active" id="pg-btn-1">
-                    <%= link_to "1", record_move_path(user: @user.twitterid, index: 0), remote: true %>
-                </li>
-                <li><i class="material-icons">more_horiz</i></li>
-                <li class="pg-btn" id="pg-btn-<% @count.to_s %>">
-                    <%= link_to @count.to_s, record_move_path(user: @user.twitterid, index: @count.to_i - 1), remote: true %>
-                </li>
-            <% else %> <!-- ページが少ない場合 -->
-                <% (1..@count).each do |i| %>
-                <% if i == 1 %>
-                    <li class="pg-btn active" id="pg-btn-<%= i.to_s %>">
-                <% else %>
-                    <li class="pg-btn waves-effect" id="pg-btn-<%= i.to_s %>">
-                <% end %>
-                <%= link_to i, record_move_path(user: @user.twitterid, index: i - 1), remote: true %>
-                </li>
-                <% end %>
-            <% end %>
-            <% if @count <= 1 %>
-                <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
-            <% else %>
-            <li class="waves-effect">
-                <%= link_to record_move_path(user: @user.twitterid, index: 1), remote: true do %>
-                    <i class="material-icons">chevron_right</i>
-                <% end %>
-            <% end %>
+                    <b><%= post.song %></b> - <%= post.artist -%><br>
+                    <span class="grey-text"><%= post.created_at.to_s(:posted_at) %></span>
+                    <span class="main-color-text">
+                        <% if post.count.to_i != 1 and post.period_before.to_i != 0%>
+                            <% if post.period_before.to_i > 24 %>
+                                <%= post.period_before.to_i / 24 %>日ぶり
+                            <% elsif post.period_before.to_i > 24 * 365 %>
+                                <%= post.period_before.to_i / (24 * 365) %>年ぶり 
+                            <% end %>
+                        <% end %>
+                        <%= post.count.to_s %>回目
+                    </span>
+                </div>
             </li>
-        </ul>
+            <% end %>
+            </ul>
+            <ul class="pagination center-align">
+                <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+                <% if @count > 4 %> <!-- ページが多い場合 -->
+                    <li class="pg_btn active" id="pg-btn-1">
+                        <%= link_to "1", record_move_path(user: @user.twitterid, index: 0), remote: true %>
+                    </li>
+                    <li><i class="material-icons">more_horiz</i></li>
+                    <li class="pg-btn" id="pg-btn-<% @count.to_s %>">
+                        <%= link_to @count.to_s, record_move_path(user: @user.twitterid, index: @count.to_i - 1), remote: true %>
+                    </li>
+                <% else %> <!-- ページが少ない場合 -->
+                    <% (1..@count).each do |i| %>
+                    <% if i == 1 %>
+                        <li class="pg-btn active" id="pg-btn-<%= i.to_s %>">
+                    <% else %>
+                        <li class="pg-btn waves-effect" id="pg-btn-<%= i.to_s %>">
+                    <% end %>
+                    <%= link_to i, record_move_path(user: @user.twitterid, index: i - 1), remote: true %>
+                    </li>
+                    <% end %>
+                <% end %>
+                <% if @count <= 1 %>
+                    <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
+                <% else %>
+                <li class="waves-effect">
+                    <%= link_to record_move_path(user: @user.twitterid, index: 1), remote: true do %>
+                        <i class="material-icons">chevron_right</i>
+                    <% end %>
+                <% end %>
+                </li>
+            </ul>
+        <% end %>
     </div>
     <div id="stat">
+    <% if @data_exists %>
         <div class="input-field col s12">
         <%= form_with url: chart_path(user: @user.twitterid), remote: true, id: "chart-range-select" do |f| %>
             <%= f.select :range,
@@ -144,6 +160,7 @@
                 onChange: 'Rails.fire(document.getElementById("chart-range-select"), "submit")'%>
         <% end %>
         </div>
+    <% end %>
     <ul id="stat-collection" class="collection row">
     <% if @data_exists %>
         <li class="collection-item col s12 m6">
