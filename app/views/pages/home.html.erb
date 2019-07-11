@@ -1,6 +1,20 @@
 
 <%= javascript_include_tag 'home.js' %>
 
+<% if not current_page?(controller: "pages", action: "home") %>
+    <% content_for :title do %>
+        <%= @user.name %> | Makasha
+    <% end %> 
+<% end %>
+
+<% content_for :head do %>
+    <% if current_page?(controller: "pages", action: "home") %>
+        <meta property="og:url" content="<%= root_url(only_path: false) %>" />
+    <% else %>
+        <meta property="og:url" content="<%= root_url(only_path: false) + "users/" + @user.twitterid %>" />
+    <% end %>
+<% end %>
+
 <% flash.each do |key, value| %>
     <%= javascript_tag "M.toast({html: '#{value}'})" %>
 <% end %>
@@ -78,14 +92,14 @@
     <div id="list">
         <% if current_page?(controller: "pages", action: "home") and @posts.blank? %>
             <div class="container center">
-                <h3 class="flow-text">名曲を追加してみましょう。</h3>
+                <h3 class="flow-text">名曲を追加してみましょう</h3>
                 このページはあなたのページです。
                 右下の+ボタンから、新しく名曲を追加できます。同じ曲を何度も追加することをためらう必要はありません(むしろ歓迎です)。
                 良いと思った曲を思うがままに追加してください。
-                <h3 class="flow-text">記録を見てみましょう。</h3>
-                記録が追加され次第、「RECORD」ページ(ここです)に記録が追加されていきます。
+                <h3 class="flow-text">記録を見てみましょう</h3>
+                名曲が追加され次第、「RECORD」ページ(ここです)に名曲が追加されていきます。
                 また、この説明の上にあるタブを「CHART」に切り替えることで、あなたの記録をグラフで確認することもできます。
-                <h3 class="flow-text">名曲を探しにいきましょう。</h3>
+                <h3 class="flow-text">名曲を探しにいきましょう</h3>
                 画面左上のメニューから、「みんなのレコード」を選ぶことで、他の誰かの感じた"名曲"を見ることができます。
                 また、その人のページに飛ぶこともできます。新しい名曲との出会いがありますように。
             </div>

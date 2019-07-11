@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Makasha</title>
+    <title><%= content_for?(:title) ? yield(:title) : "Makasha"%></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@takasa_five" />
+    <meta property="og:title" content="<%= yield(:title) %>" />
+    <meta property="og:description" content='Makashaは"名曲"を記録するためのサービスです。' />
+    <meta property="og:image" content="<%= image_path("b-icon-with-logo.png") %>" />
     <%= favicon_link_tag('b-icon.png') %>
     <%= include_gon() %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -18,6 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <!--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>-->
+    <%= yield :head %>
   </head>
 
   <body>

@@ -33,7 +33,8 @@ class PostsController < ApplicationController
     # ツイート
     if params[:post][:twitter] == "1"
       make_tweet(user.template, @post)
-      @client.update(@tweet)
+      # @client.update(@tweet)
+      puts @tweet
     end
 
     redirect_to root_path
@@ -132,5 +133,6 @@ class PostsController < ApplicationController
 
   def make_tweet(template, post)
     @tweet = template.gsub!("%artist%", post.artist).gsub!("%song%", post.song)
+    @tweet += " " + root_url(only_path: false) + "users/" + current_user.twitterid
   end
 end

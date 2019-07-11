@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     );
     var elems = document.querySelectorAll('.tabs');
     var instances = M.Tabs.init(elems, {
-        swipeable: true
+        swipeable: false
     });
     var btnHeight;
     if (document.getElementById('floating-add-btn'))
