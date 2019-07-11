@@ -10,7 +10,7 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@takasa_five" />
     <meta property="twitter:image" content="<%= asset_url("b-icon-with-logo.png") %>" />
-    <meta property="og:title" content="<%= yield(:title) %>" />
+    <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : "Makasha"%>" />
     <meta property="og:description" content='Makashaは"名曲"を記録するためのサービスです。' />
     <meta property="og:image" content="<%= asset_url("b-icon-with-logo.png") %>" />
     <%= favicon_link_tag('b-icon.png') %>
