@@ -9,9 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@takasa_five" />
+    <meta property="twitter:image" content="<%= asset_url("b-icon-with-logo.png") %>" />
     <meta property="og:title" content="<%= yield(:title) %>" />
     <meta property="og:description" content='Makashaは"名曲"を記録するためのサービスです。' />
-    <meta property="og:image" content="<%= image_path("b-icon-with-logo.png") %>" />
+    <meta property="og:image" content="<%= asset_url("b-icon-with-logo.png") %>" />
     <%= favicon_link_tag('b-icon.png') %>
     <%= include_gon() %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
