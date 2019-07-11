@@ -1,8 +1,10 @@
 
 <%= javascript_include_tag 'home.js' %>
 
-<% if not current_page?(controller: "pages", action: "home") %>
-    <% content_for :title do %>
+<% content_for :title do %>
+    <% if current_page?(controller: "pages", action: "home") %>
+        Makasha
+    <% else %>
         <%= @user.name %> | Makasha
     <% end %> 
 <% end %>

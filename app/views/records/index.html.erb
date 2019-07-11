@@ -1,4 +1,9 @@
 <%= javascript_include_tag 'records.js' %>
+
+<% content_for :title do %>
+    みんなのレコード | Makasha
+<% end %>
+
 <div class="container">
 <% if not logged_in? %>
 <div class="col s12 center">
