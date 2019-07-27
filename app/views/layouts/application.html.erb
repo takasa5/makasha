@@ -29,6 +29,7 @@
 
   <body>
   <%= javascript_include_tag 'init.js' %>
+  <%= javascript_include_tag 'image_path.js' %>
     <nav>
       <div class="nav-wrapper main-color">
         <a href="/" class="center brand-logo makasha-icon">
@@ -46,7 +47,7 @@
     <% if logged_in? %>
       <div class="row med-color" style="padding:20px 0">
         <div class="col s4 offset-s4">
-          <%= image_tag(current_user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) %>
+          <%= image_tag(current_user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img", :onerror => "onImageError(this)"}) %>
         </div>
         <div class="col s12 center white-text">
           <%= current_user.name %>

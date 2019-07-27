@@ -67,7 +67,7 @@
         <div class="card-content">
             <div class="row">
             <div class="col s4 l2">
-                <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) %>
+                <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img", :onerror => "onImageError(this)"}) %>
             </div>
             <div class="col s8 l10">
                 <span class="card-title"><%= @user.name %></span>
@@ -91,7 +91,7 @@
             </a>
         </li>
     </ul>
-    <div id="list">
+    <div id="list" class="tabs-content">
         <% if current_page?(controller: "pages", action: "home") and @posts.blank? %>
             <div class="container center">
                 <h3 class="flow-text">名曲を追加してみましょう</h3>
@@ -164,7 +164,7 @@
             </ul>
         <% end %>
     </div>
-    <div id="stat">
+    <div id="stat" class="tabs-content">
     <% if @data_exists %>
         <div class="input-field col s12">
         <%= form_with url: chart_path(user: @user.twitterid), remote: true, id: "chart-range-select" do |f| %>

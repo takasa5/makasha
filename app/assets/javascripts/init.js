@@ -36,3 +36,10 @@ function openSideNav(elm) {
     var instance = M.Sidenav.getInstance(elem);
     instance.open();
 }
+
+function onImageError(image) {
+    image.onerror = "";
+    image.src = image_path("b-icon.png");
+    image.classList.add('default-icon');
+    image.style.backgroundColor = "#726DA8";
+}

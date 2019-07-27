@@ -4,7 +4,7 @@ var inner = `
 <% @posts.each do |post| %>
     <li class="collection-item avatar">
         <% user = user_from_post(post) %>
-        <%= link_to image_tag(user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) ,"/users/#{user.twitterid}" %>
+        <%= link_to image_tag(user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img", :onerror => "onImageError(this)"}) ,"/users/#{user.twitterid}" %>
         <%= link_to user.name, "/users/#{user.twitterid}" %><br>
         <b><%= post.song %></b> - <%= post.artist -%><br>
         

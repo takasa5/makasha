@@ -2,7 +2,7 @@
 <div class="container">
 <div class="row" style="margin-top:20px">
     <div class="col s4 offset-s4">
-        <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img"}) %>
+        <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img", :onerror => "onImageError(this)"}) %>
     </div>
 </div>
 <%= form_with model: @user, class: "center" do |f| %>

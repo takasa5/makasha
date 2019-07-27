@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('floating-add-btn'))
         btnHeight = document.getElementById('floating-add-btn').clientHeight;
     if (listHeight && btnHeight) {
-        document.querySelector('.tabs-content.carousel').style.height = listHeight + btnHeight * 2 + "px";
+        document.querySelector('.tabs-content').style.height = listHeight + btnHeight * 2 + "px";
     } else if (listHeight) {
-        document.querySelector('.tabs-content.carousel').style.height = listHeight * 1.2 + "px";
+        document.querySelector('.tabs-content').style.height = listHeight * 1.2 + "px";
     }
     
     // グラフ描画
