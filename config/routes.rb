@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/records/next' => 'records#next'
   post '/chart' => 'pages#chart_update'
   post '/delete' => 'pages#delete_account'
+  post '/refresh_icon' => 'pages#refresh_icon'
 
   resources :users
   resources :posts

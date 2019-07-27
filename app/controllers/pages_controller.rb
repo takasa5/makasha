@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   # 主にホーム画面のコントローラ
   include SessionsHelper, UsersHelper
   # protect_from_forgery except: :chart_update
+  before_action :twitter_client, only: [:refresh_icon]
 
   def home(list_num: 10)
     if logged_in?
@@ -75,4 +76,22 @@ class PagesController < ApplicationController
     get_record_stat(params[:user], range: params[:range])
   end
   
+  # ツイッターアイコンの再取得
+  def refresh_icon
+    current_user.update(
+      image_url: @client.user.profile_image_url
+    )
+    @user = current_user
+    render 'setting.html.erb'
+  end
+
+  def twitter_client
+    @client = Twitter::REST::Client.new do |config|
+      config.consumer_key = Rails.application.credentials.mom[:api_key]
+      config.consumer_secret = Rails.application.credentials.mom[:api_secret]
+      config.access_token = current_user_token
+      config.access_token_secret = current_user_secret
+    end
+  end
+
 end

@@ -9,8 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+window.onload = function() {
+    // 画像の読み込みが行われた後に評価
+    let icon = document.getElementById("icon");
+    if (icon.classList.contains("default-icon")) {
+        let col = document.getElementById("refresh-col");
+        col.style.display = "block";
+    }
+}
+
 function modalCancel() {
-    var elem = document.getElementById('delete-modal');
-    var instance = M.Modal.getInstance(elem);
+    let elem = document.getElementById('delete-modal');
+    let instance = M.Modal.getInstance(elem);
     instance.close();
 }

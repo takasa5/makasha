@@ -2,7 +2,14 @@
 <div class="container">
 <div class="row" style="margin-top:20px">
     <div class="col s4 offset-s4">
-        <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img", :onerror => "onImageError(this)"}) %>
+        <%= image_tag(@user.image_url.sub(/_normal/, ''), {:id => "icon", :class => "circle responsive-img", :onerror => "onImageError(this)"}) %>
+    </div>
+    <div id="refresh-col" style="display: none;" class="col s12 center">
+        <%= link_to "アイコンの再取得",
+            refresh_icon_path(authenticity_token: form_authenticity_token),
+            method: :post,
+            class: "waves-effect med-color btn white-text",
+            id: "refresh_btn" %>
     </div>
 </div>
 <%= form_with model: @user, class: "center" do |f| %>
@@ -38,7 +45,7 @@
 <div id="delete-modal" class="modal">
     <div class="modal-content">
         <h5>アカウントの削除</h5>
-        この操作よって過去に記録した全データおよびアカウントの情報は削除され、復元することはできません。
+        この操作によって過去に記録した全データおよびアカウントの情報は削除され、復元することはできません。
         <br>
         上記に納得いただける場合、下の「削除」を押すことでアカウントを削除できます。
         <div class="modal-footer">
