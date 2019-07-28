@@ -49,9 +49,11 @@ module UsersHelper
     end
     gon.artists_count = artists_count
     @artists_count = artists_count.to_json.html_safe
+    puts("artists_count #{@artists_count}")
     # 曲のランキング
     data = record.group(:artist, :song).count.sort_by{|a| a[1]}.reverse[0..2]
     @rank = data
+    puts("rank #{@rank}")
 
     # レコード増加
     # TODO: 最初から日時で切り出さないとおかしくなる?
@@ -101,7 +103,7 @@ module UsersHelper
       chrono[:labels] << (1.week.ago).to_s(:chart)
       chrono[:datasets][0][:data] << base_count
     end
-    if (range != "recent100" and time_count_set[0][0] != most_old_label)
+    if (range != "recent100" and (time_count_set.empty? or time_count_set[0][0] != most_old_label))
       chrono[:labels] << most_old_label
       chrono[:datasets][0][:data] << base_count
     end
@@ -111,7 +113,7 @@ module UsersHelper
       chrono[:datasets][0][:data] << base_count
     end
     today_label = Time.zone.today.to_s(:chart)
-    if (range != "recent100" and time_count_set[-1][0] != today_label)
+    if (range != "recent100" and (time_count_set.empty? or time_count_set[-1][0] != today_label))
       chrono[:labels] << today_label
       chrono[:datasets][0][:data] << base_count
     end
