@@ -57,9 +57,14 @@
         <i class="material-icons">home</i>マイページ
       </a></li>
     <% else %>
-      <li><a href="/auth/twitter" class="grey-text text-darken-3">
-        <i class="fab fa-twitter fa-fw fa-lg"></i>Twitterでログイン
-      </a></li>
+      <li>
+        <%= link_to '/auth/twitter',
+          class: "grey-text text-darken-3",
+          method: :post,
+          style: 'text-transform: none !important;' do%>
+          <i class="fab fa-twitter fa-fw fa-lg" ></i> Twitterでログイン
+        <% end %>
+      </li>
     <% end %>
       <li><a href="/records" class="grey-text text-darken-3">
         <i class="material-icons">people</i>みんなのレコード

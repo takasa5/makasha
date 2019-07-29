@@ -8,8 +8,10 @@
 <% if not logged_in? %>
 <div class="col s12 center">
     Makashaで名曲を記録しませんか？
+    <br>
     <%= link_to '/auth/twitter',
         class: "waves-effect waves-light btn twitter-color",
+        method: :post,
         style: 'text-transform: none !important;' do%>
         <i class="fab fa-twitter fa-fw" ></i> Twitterで登録/ログイン
     <% end %>
