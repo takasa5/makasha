@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/chart' => 'pages#chart_update'
   post '/delete' => 'pages#delete_account'
   post '/refresh_icon' => 'pages#refresh_icon'
+  get '/faq' => 'pages#faq'
 
   resources :users
   resources :posts

@@ -4,3 +4,19 @@
 #delete-row {
     padding-top: 50px;
 }
+
+.question {
+    margin-top: 20px;
+    padding: 0.25em 0.5em;
+    border-left: solid 5px #726DA8;
+}
+
+.quote {
+    background: lightgray;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+li:last-child {
+    margin-bottom: 5rem;
+}

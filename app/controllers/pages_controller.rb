@@ -52,9 +52,17 @@ class PagesController < ApplicationController
 
   # 設定ビュー
   def setting
-    @user = current_user
+    if logged_in?
+      @user = current_user
+      render 'setting.html.erb'
+    else
+      redirect_to lp_path
+    end
+  end
 
-    render 'setting.html.erb'
+  # FAQビュー
+  def faq
+    render 'faq.html.erb'
   end
 
   # アカウント削除
