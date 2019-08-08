@@ -16,20 +16,20 @@ default: &default
 
 development:
   <<: *default
-  database: makasha-dev
+  database: makasha_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: makasha-test
+  database: makasha_test
 
 production:
   adapter: mysql2
   encoding: utf8
   pool: 5
-  database: makasha-production
+  database: makasha_production
   username: root
   password: <%= ENV["DATABASE_PASS"] %>
   socket: /var/lib/mysql/mysql.sock
