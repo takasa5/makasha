@@ -44,6 +44,7 @@ gem 'bcrypt', '~> 3.1.7'
 # pass data from rails to javascript
 gem 'gon'
 gem 'solargraph'
+gem 'rspotify'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -70,8 +71,8 @@ group :test do
   gem 'chromedriver-helper'
 end
 
-group :production do
-  gem 'pg', '0.20.0'
+group :production, :staging do
+  gem 'mysql2'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
