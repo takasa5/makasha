@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* toppage */
 h1 {
+    font-size: 5rem !important;
     margin: 0 !important;
 }
 
@@ -24,13 +25,17 @@ h1 {
     background-color: rgba(114, 109, 168, 0.5);
 }
 
+#firstview>div>div {
+    padding-bottom: 40px;
+}
+
 section {
     height: auto;
     overflow: hidden;
 }
 
-section>.row {
-    padding: 40px 0;
+section>div {
+    padding-top: 40px !important;
     z-index: 1;
     position: relative;
 }
@@ -40,6 +45,10 @@ section>div.row>div.col>p {
 }
 
 #add-carousel .carousel-item{
+    height: 420px !important;
+}
+
+#add-carousel{
     height: 420px !important;
 }
 

@@ -9,7 +9,7 @@ class PagesController < ApplicationController
       @user = current_user
       if @user.nil?
         log_out
-        redirect_to lp_path
+        render template: "landing/index"
       else
         cnt = Post.where(posted_by: @user.twitterid).count
         @records = cnt
@@ -28,7 +28,7 @@ class PagesController < ApplicationController
         end
       end
     else
-      redirect_to lp_path
+      render template: "landing/index"
     end
   end
 
@@ -56,7 +56,7 @@ class PagesController < ApplicationController
       @user = current_user
       render 'setting.html.erb'
     else
-      redirect_to lp_path
+      render template: "landing/index"
     end
   end
 

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/record/move' => 'pages#move'
   get '/record/edit' => 'pages#edit'
   patch '/record/edit/:id' => 'posts#update'
-  get '/lp' => 'landing#index'
+  # get '/lp' => 'landing#index'
   get '/records' => 'records#index'
   get '/records/next' => 'records#next'
   post '/chart' => 'pages#chart_update'
