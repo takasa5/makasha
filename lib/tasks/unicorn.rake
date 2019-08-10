@@ -1,4 +1,5 @@
 namespace :unicorn_rails do
+  # unicorn_rails task
   RAILS_ENV=ENV['RAILS_ENV']
   UNICORN_CMD='unicorn_rails'
   UNICORN_CONFIG=%Q(#{File.dirname(File.expand_path(__FILE__))}/../../config/unicorn/#{ENV['RAILS_ENV']}.rb)
