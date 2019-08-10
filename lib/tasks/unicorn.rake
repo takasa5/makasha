@@ -1,40 +1,48 @@
-namespace :unicorn do
-    ##
-    # Tasks
-    ##
-    desc "Start unicorn for production env."
-    task(:start) {
-      config = Rails.root.join('config', 'unicorn.rb')
-      sh "bundle exec unicorn_rails -c #{config} -E production -D"
-    }
-  
-    desc "Stop unicorn"
-    task(:stop) { unicorn_signal :QUIT }
-  
-    desc "Restart unicorn with USR2"
-    task(:restart) { unicorn_signal :USR2 }
-  
-    desc "Increment number of worker processes"
-    task(:increment) { unicorn_signal :TTIN }
-  
-    desc "Decrement number of worker processes"
-    task(:decrement) { unicorn_signal :TTOU }
-  
-    desc "Unicorn pstree (depends on pstree command)"
-    task(:pstree) do
-      sh "pstree '#{unicorn_pid}'"
-    end
-  
-    def unicorn_signal signal
-      Process.kill signal, unicorn_pid
-    end
-  
-    def unicorn_pid
-      begin
-        File.read("/tmp/unicorn.pid").to_i
-      rescue Errno::ENOENT
-        raise "Unicorn doesn't seem to be running"
-      end
-    end
-  
+namespace :unicorn_rails do
+  RAILS_ENV=ENV['RAILS_ENV']
+  UNICORN_CMD='unicorn_rails'
+  UNICORN_CONFIG=%Q(#{File.dirname(File.expand_path(__FILE__))}/../../config/unicorn/#{ENV['RAILS_ENV']}.rb)
+  UNICORN_PID=%Q(#{File.dirname(File.expand_path(__FILE__))}/../../tmp/pids/unicorn.pid)
+
+  task :environment do
   end
+
+  desc 'unicorn_rails start'
+  task :start => :environment do
+
+    sh %Q(/bin/bash -lc "bundle exec #{UNICORN_CMD} -c #{UNICORN_CONFIG} -E #{RAILS_ENV} -D")
+  end
+
+  desc 'unicorn_rails stop'
+  task :stop => :environment do 
+    if %x(ps ho pid p `cat #{UNICORN_PID}`).present?
+      sh %Q(kill `cat #{UNICORN_PID}`)
+    end
+  end
+
+  desc 'unicorn_rails graceful_stop'
+  task :graceful_stop => :environment do
+    if %x(ps ho pid p `cat #{UNICORN_PID}`).present?
+      sh %Q(kill -s QUIT `cat #{UNICORN_PID}`)
+    end
+  end
+
+  desc 'unicorn_rails reload'
+  task :reload => :environment do
+    if %x(ps ho pid p `cat #{UNICORN_PID}`).present?
+      sh %Q(kill -s USR2 `cat #{UNICORN_PID}`)
+    else
+      Rake::Task['unicorn_rails:start'].execute
+    end
+  end
+
+  desc 'unicorn_rails restart'
+  task :restart => :environment do
+    if %x(ps ho pid p `cat #{UNICORN_PID}`).present?
+      Rake::Task['unicorn_rails:stop'].execute
+    else
+      puts %Q(unicorn didn't work.)
+    end
+    Rake::Task['unicorn_rails:start'].execute
+  end
+end
