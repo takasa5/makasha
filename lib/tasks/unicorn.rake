@@ -2,7 +2,7 @@ namespace :unicorn_rails do
   # unicorn_rails task
   RAILS_ENV=ENV['RAILS_ENV']
   UNICORN_CMD='unicorn_rails'
-  UNICORN_CONFIG=%Q(#{File.dirname(File.expand_path(__FILE__))}/../../config/unicorn/#{ENV['RAILS_ENV']}.rb)
+  UNICORN_CONFIG=%Q(#{File.dirname(File.expand_path(__FILE__))}/../../config/unicorn.rb)
   UNICORN_PID=%Q(#{File.dirname(File.expand_path(__FILE__))}/../../tmp/pids/unicorn.pid)
 
   task :environment do
