@@ -1,19 +1,19 @@
 class UsersController < ApplicationController
   include SessionsHelper, UsersHelper
 
-  def home
+  def home(list_num: 10)
     @user = User.find_by(twitterid: params[:twitterid])
     if @user.nil?
       # ユーザーは存在しません処理
     else
       cnt = Post.where(posted_by: @user.twitterid).count
       @records = cnt
-      if cnt % 8 == 0
-        @count = cnt / 8
+      if cnt % list_num == 0
+        @count = cnt / list_num
       else
-        @count = cnt / 8 + 1
+        @count = cnt / list_num + 1
       end
-      @posts = Post.where(posted_by: @user.twitterid).reverse_order.limit(8)
+      @posts = Post.where(posted_by: @user.twitterid).reverse_order.limit(list_num)
     end
     @index = 1
     if cnt != 0
