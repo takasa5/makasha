@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   patch '/record/edit/:id' => 'posts#update'
   # get '/lp' => 'landing#index'
   get '/records' => 'records#index'
+  post '/records' => 'records#search'
   get '/records/next' => 'records#next'
   post '/chart' => 'pages#chart_update'
   post '/delete' => 'pages#delete_account'

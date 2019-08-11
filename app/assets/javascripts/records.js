@@ -4,3 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
         edge: 'left',
     });
 })
+
+function onClickSearch() {
+    let modal = document.getElementById('search-modal');
+    let instance = M.Modal.getInstance(modal);
+    instance.open();
+}

@@ -17,6 +17,44 @@
     <% end %>
 </div>
 <% end %>
+<div class="fixed-action-btn" id="floating-add-btn">
+    <a class="btn-floating btn-large waves-effect waves-light main-color" onclick="onClickSearch()">
+        <i class="material-icons base-high-color-text">search</i>
+    </a>
+</div>
+<div id="search-modal" class="modal">
+    <div class="modal-content">
+    <h5>名曲を検索する</h5>
+    <%= form_with model: Post.new, url: records_path do |form| %>
+            <i class="material-icons" style="font-size:1rem;">music_note</i><%= form.label :song %>
+            <%= form.text_field :song %>
+            <br>
+            <i class="material-icons" style="font-size:1rem;">person</i><%= form.label :artist %>
+            <%= form.text_field :artist %>
+            <br>
+            <div class="modal-footer">
+                <%= form.button "検索", type: "button", :class=>"waves-effect med-color btn add-btn white-text", onclick: "submit()" %>
+            </div>
+        <% end %>
+        </div>
+</div>
+<% if defined? @artist_query and (@song_query.length > 0 or @artist_query.length > 0)%>
+    <div class="container">
+        <div class="row" id="query-row">
+            <% if @song_query.length > 0 %>
+                <div class="col s12 m6">
+                    楽曲名: 「<b><%= @song_query %></b>」<br>
+                </div>
+            <% end %>
+            <% if @artist_query.length > 0 %>
+                <div class="col s12 m6">
+                    アーティスト名: 「<b><%= @artist_query %></b>」<br>
+                </div>
+            <% end %>
+        </div>
+        <div class="col s12 right-align">の検索結果</div>
+    </div>
+<% end %>
 <ul id="records-collection" class="collection">
 <% @posts.each do |post| %>
     <li class="collection-item avatar">
@@ -39,17 +77,19 @@
     </li>
 <% end %>
 </ul>
-<% if @all_count <= 10 %>
-    <div id="next-btn-wrapper" class="row">
-        <button class="btn disabled waves-effect waves-light main-color col s12">
-                ここが最初のレコードです。
-        </button>
-    </div>
-<% else %>
-    <div id="next-btn-wrapper" class="row">
-        <button class="btn waves-effect waves-light main-color col s12">
-            <%= link_to "続きを表示", records_next_path(start: 10), remote: true, class: "white-text" %>
-        </button>
-    </div>
+<% if not defined? @artist_query or !(@song_query.length > 0 or @artist_query.length > 0)%>
+    <% if @all_count <= 10 %>
+        <div id="next-btn-wrapper" class="row">
+            <button class="btn disabled waves-effect waves-light main-color col s12">
+                    ここが最初のレコードです。
+            </button>
+        </div>
+    <% else %>
+        <div id="next-btn-wrapper" class="row">
+            <button class="btn waves-effect waves-light main-color col s12">
+                <%= link_to "続きを表示", records_next_path(start: 10), remote: true, class: "white-text" %>
+            </button>
+        </div>
+    <% end %>
 <% end %>
 </div>
