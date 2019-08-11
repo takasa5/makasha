@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_23_115123) do
+ActiveRecord::Schema.define(version: 2019_08_11_025918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_06_23_115123) do
     t.string "remember_digest"
     t.string "profile"
     t.string "template", default: "%song% - %artist%"
+    t.boolean "indicate_twitter", default: false, null: false
   end
 
 end

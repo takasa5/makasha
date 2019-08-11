@@ -5,6 +5,8 @@ ja:
         name: "名前"
         profile: "プロフィール"
         template: "ツイートテンプレート"
+        indicate_twitter: "Twitterへのリンクを公開"
       post:
         artist: "アーティスト名"
         song: "楽曲名"
+        

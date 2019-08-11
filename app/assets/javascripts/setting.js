@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('input');
+    var elems = document.querySelectorAll('input[type="text"]');
     var instances = M.CharacterCounter.init(elems);
     var elems = document.querySelectorAll('textarea');
     var instances = M.CharacterCounter.init(elems);

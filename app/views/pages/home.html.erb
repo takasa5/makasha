@@ -72,7 +72,14 @@
                 <%= image_tag(@user.image_url.sub(/_normal/, ''), {:class => "circle responsive-img", :onerror => "onImageError(this)"}) %>
             </div>
             <div class="col s8 l10">
-                <span class="card-title"><%= @user.name %></span>
+                <span class="card-title">
+                    <%= @user.name %>
+                    <% if @user.indicate_twitter %>
+                        <%= link_to "https://twitter.com/#{@user.twitterid}", target: :_blank do%>
+                            <i class="fab fa-twitter fa-fw twitter-color-text"></i>
+                        <% end %>
+                    <% end %>
+                </span>
                 <span class="main-color-text"><%= @records %> RECORDS<br></span>
                 <%= @user.profile %>
             </div>

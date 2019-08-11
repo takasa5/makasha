@@ -13,6 +13,10 @@
     </div>
 </div>
 <%= form_with model: @user, class: "center" do |f| %>
+    <label>
+        <%= f.check_box :indicate_twitter %>
+        <span><%= f.label :indicate_twitter %></span>
+    </label>
     <div class="input-field">
         <%= f.text_field :name, maxlength: 20, data: {length: 20} %>
         <%= f.label :name%>

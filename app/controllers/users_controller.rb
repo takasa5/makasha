@@ -30,7 +30,8 @@ class UsersController < ApplicationController
     current_user.update(
       name: params[:user][:name],
       profile: params[:user][:profile],
-      template: params[:user][:template]
+      template: params[:user][:template],
+      indicate_twitter: params[:user][:indicate_twitter]
     )
   end
   
