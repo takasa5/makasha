@@ -10,3 +10,9 @@ function onClickSearch() {
     let instance = M.Modal.getInstance(modal);
     instance.open();
 }
+
+function changeCollection() {
+    let collection = document.getElementById('records-collection');
+    collection.classList.add('with-header');
+    console.log(collection);
+}

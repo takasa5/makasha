@@ -33,29 +33,31 @@
             <%= form.text_field :artist %>
             <br>
             <div class="modal-footer">
-                <%= form.button "検索", type: "button", :class=>"waves-effect med-color btn add-btn white-text", onclick: "submit()" %>
+                <%= form.button "検索", type: "button", :class=>"waves-effect med-color btn add-btn white-text", onclick: "changeCollection();submit()" %>
             </div>
         <% end %>
         </div>
 </div>
+
+<ul id="records-collection" class="collection with-header">
 <% if defined? @artist_query and (@song_query.length > 0 or @artist_query.length > 0)%>
-    <div class="container">
-        <div class="row" id="query-row">
-            <% if @song_query.length > 0 %>
-                <div class="col s12 m6">
-                    楽曲名: 「<b><%= @song_query %></b>」<br>
-                </div>
-            <% end %>
-            <% if @artist_query.length > 0 %>
-                <div class="col s12 m6">
-                    アーティスト名: 「<b><%= @artist_query %></b>」<br>
-                </div>
-            <% end %>
-        </div>
+    <li class="collection-header">
+        <%= link_to records_path, class: "secondary-content grey-text" do %>
+            <i class="material-icons">close</i>
+        <% end %>
+        <% if @song_query.length > 0 %>
+            <div class="col s12 m6">
+                楽曲名: 「<b><%= @song_query %></b>」<br>
+            </div>
+        <% end %>
+        <% if @artist_query.length > 0 %>
+            <div class="col s12 m6">
+                アーティスト名: 「<b><%= @artist_query %></b>」<br>
+            </div>
+        <% end %>
         <div class="col s12 right-align">の検索結果</div>
-    </div>
+    </li>
 <% end %>
-<ul id="records-collection" class="collection">
 <% @posts.each do |post| %>
     <li class="collection-item avatar">
         <% user = user_from_post(post) %>
