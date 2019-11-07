@@ -20,41 +20,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // グラフ描画
-    var ctx = document.getElementById('recordChrono').getContext('2d');
-    window.rcChart = new Chart(ctx, {
-        type: 'line',
-        data: gon.chrono,
-        options: {
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        displayFormats: {
-                            unit: 'week',
-                            day: 'M/D'
+    var ctx = document.getElementById('recordChrono');
+    if (ctx) {
+        ctx = ctx.getContext('2d');
+        window.rcChart = new Chart(ctx, {
+            type: 'line',
+            data: gon.chrono,
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                unit: 'week',
+                                day: 'M/D'
+                            }
                         }
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    }
+    var ctx = document.getElementById('artistsCount');
+    if (ctx) {
+        ctx = ctx.getContext('2d');
+        window.acChart = new Chart(ctx, {
+            type: 'pie',
+            data: gon.artists_count,
+            options: {
+                title: {
+                    display: false,
+                    text: '最近のアーティスト'
+                },
+                legend: {
+                    position: 'right',
+                }
+            }
+        });
+    }
+
+    // スクロール検出
+    let start_pos = 0;
+    window.onscroll = function() {
+        let container = document.querySelector(".container").getBoundingClientRect();
+        let containerX = container.right;
+        let current_pos = document.documentElement.scrollTop || // IE、Firefox、Opera
+                          document.body.scrollTop; // Chrome、Safari
+        
+        let btn = document.getElementById("floating-add-btn");
+        if (btn) {
+            if (btn.getBoundingClientRect().left < containerX) {
+                if (current_pos > start_pos) {
+                    if (!btn.classList.contains("active")) {
+                        btn.classList.add("active");
                     }
-                }]
-            },
-            legend: {
-                display: false
+                } else {
+                    if (btn.classList.contains("active")) {
+                        btn.classList.remove("active");
+                    }
+                }
             }
         }
-    });
-    var ctx = document.getElementById('artistsCount').getContext('2d');
-    window.acChart = new Chart(ctx, {
-        type: 'pie',
-        data: gon.artists_count,
-        options: {
-            title: {
-                display: false,
-                text: '最近のアーティスト'
-            },
-            legend: {
-                position: 'right',
-            }
-        }
-    });
+        start_pos = current_pos;
+    }
 })
 
 function selectRange(obj) {

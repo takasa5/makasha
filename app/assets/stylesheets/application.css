@@ -139,3 +139,12 @@ input[type=text]:focus {
 .material-tooltip {
   max-width: calc(100% - 20px) !important;
 }
+
+.fixed-action-btn {
+  transition: 500ms;
+  -webkit-transition: 500ms;
+}
+
+.fixed-action-btn.active {
+  transform: scale(0);
+}
