@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems, {});
+
+    var toast = M.toast({
+        html: "2020年7月中に、Makashaはサービスを停止する予定です。<br>約一年間ありがとうございました。"
+    });
 });
 
 function onClickAdd() {
