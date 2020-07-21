@@ -1,5 +1,5 @@
 # makasha
-
+(2020/07/21にサービスを終了しました)
 ## screenshots
 
 <table border="0">
